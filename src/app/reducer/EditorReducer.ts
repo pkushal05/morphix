@@ -1,6 +1,5 @@
 import { document } from "@/types/document";
 import { Actions, ActionTypes } from "@/types/actions";
-import { text } from "stream/consumers";
 
 export function reducer(state: document, action: Actions) {
     switch (action.type) {
