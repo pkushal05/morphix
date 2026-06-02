@@ -1,10 +1,13 @@
 export type document = {
-    sections: topic[];
+    documentTitle: string;
+    sections: Record<string, topic>;
+    sectionOrder: string[];
 };
 
 export type topic = {
     title: HeadingBlock & { level: 1 };
-    contents: contentBlock[];
+    contents: Record<string, contentBlock>;
+    contentOrder: string[];
 };
 
 export type contentBlock = HeadingBlock | ParagraphBlock | ListBlock;
@@ -32,5 +35,3 @@ export type AnchorBlock = {
     type: "anchor";
     href: string;
 };
-
-

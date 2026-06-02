@@ -1,30 +1,71 @@
-import { document, ActionTypes } from "@/types/document";
-import { ActionDispatch } from "react";
+import { document } from "@/types/document";
+import { Actions, ActionTypes } from "@/types/actions";
+import { text } from "stream/consumers";
 
-type Action =
-    | { type: ActionTypes.LOAD; payload: document }
-    | {
-          type: ActionTypes.UPDATE_HEADING;
-          value: string;
-          sectionIdx: number;
-          blockIdx: number;
-      }
-    | {
-          type: ActionTypes.UPPDATE_TOPIC_TITLE;
-          value: string;
-          sectionIdx: number;
-      };
-
-export function reducer(state: document, action: ActionDispatch<[]>) {
+export function reducer(state: document, action: Actions) {
     switch (action.type) {
-        case "LOAD":
+        case ActionTypes.LOAD:
             return action.payload;
 
-        case "UPDATE_HEADING":
-            return { ...state, title: action.value };
+        case ActionTypes.UPPDATE_TOPIC_TITLE:
+            return {
+                ...state,
+                sections: {
+                    ...state.sections,
+                    [action.sectionId]: {
+                        ...state.sections[action.sectionId],
+                        title: {
+                            ...state.sections[action.sectionId].title,
+                            text: action.value,
+                        },
+                    },
+                },
+            };
+
+        case ActionTypes.UPDATE_PARAGRAPH:
+            return {
+                ...state,
+                sections: {
+                    ...state.sections,
+                    [action.sectionId]: {
+                        ...state.sections[action.sectionId],
+                        contents: {
+                            ...state.sections[action.sectionId].contents,
+                            [action.blockId]: {
+                                ...state.sections[action.sectionId].contents[
+                                    action.blockId
+                                ],
+                                text: action.value,
+                            },
+                        },
+                    },
+                },
+            };
+
+        case ActionTypes.UPDATE_HEADING:
+            return {
+                ...state,
+                sections: {
+                    ...state.sections,
+                    [action.sectionId]: {
+                        ...state.sections[action.sectionId],
+                        contents: {
+                            ...state.sections[action.sectionId].contents,
+                            [action.blockId]: {
+                                ...state.sections[action.sectionId].contents[
+                                    action.blockId
+                                ],
+                                text: action.value,
+                            },
+                        },
+                    },
+                },
+            };
     }
 }
 
 export const initialState: document = {
-    sections: [],
+    documentTitle: "",
+    sections: {},
+    sectionOrder: [],
 };
