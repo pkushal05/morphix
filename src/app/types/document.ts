@@ -27,8 +27,10 @@ export type ParagraphBlock = {
 export type ListBlock = {
     type: "list";
     ordered: boolean;
-    items: string[];
-    links?: AnchorBlock[];
+    items: {
+        text: string;
+        links?: AnchorBlock[];
+    }[];
 };
 
 export type AnchorBlock = {

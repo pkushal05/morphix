@@ -90,21 +90,28 @@ export function convertToJson(html: string): document {
                 case "list":
                     if (currentSectionId) {
                         const blockId = crypto.randomUUID();
-                        const anchors = el.querySelectorAll("a");
 
                         sections[currentSectionId].contents[blockId] = {
                             type: "list",
                             ordered: el.rawTagName === "ol" ? true : false,
                             items: el
                                 .querySelectorAll("li")
-                                .map((li: HTMLElement) => li.innerText.trim()),
-                            ...(anchors.length > 0 && {
-                                links: anchors.map((a) => ({
-                                    type: "anchor",
-                                    href: a.getAttribute("href") ?? "",
-                                    text: a.innerText ?? "",
-                                })),
-                            }),
+                                .map((li: HTMLElement) => {
+                                    const liAnchors = li.querySelectorAll("a");
+
+                                    return {
+                                        text: li.innerText?.trim(),
+                                        ...(liAnchors.length > 0 && {
+                                            links: liAnchors.map((a) => ({
+                                                type: "anchor",
+                                                href:
+                                                    a.getAttribute("href") ??
+                                                    "",
+                                                text: a.innerText?.trim() ?? "",
+                                            })),
+                                        }),
+                                    };
+                                }),
                         };
 
                         sections[currentSectionId].contentOrder.push(blockId);
