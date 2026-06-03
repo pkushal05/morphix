@@ -1,7 +1,7 @@
 import { document } from "@/types/document";
 import { Actions, ActionTypes } from "@/types/actions";
 
-export function reducer(state: document, action: Actions) {
+export function reducer(state: document, action: Actions): document {
     switch (action.type) {
         case ActionTypes.LOAD:
             return action.payload;
@@ -60,6 +60,9 @@ export function reducer(state: document, action: Actions) {
                     },
                 },
             };
+
+        default:
+            return state;
     }
 }
 
