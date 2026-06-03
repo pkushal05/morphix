@@ -21,17 +21,18 @@ export type HeadingBlock = {
 export type ParagraphBlock = {
     type: "paragraph";
     text: string;
-    link?: AnchorBlock;
+    links?: AnchorBlock[];
 };
 
 export type ListBlock = {
     type: "list";
     ordered: boolean;
     items: string[];
-    link?: AnchorBlock;
+    links?: AnchorBlock[];
 };
 
 export type AnchorBlock = {
     type: "anchor";
     href: string;
+    text: string;
 };

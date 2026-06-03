@@ -36,7 +36,7 @@ export function convertToJson(html: string): document {
 
                 case "pageBreak":
                     expectingTopicTitle = true;
-                    break;
+                    continue;
 
                 case "topicTitle":
                     const sectionId = crypto.randomUUID();
@@ -68,24 +68,43 @@ export function convertToJson(html: string): document {
                 case "paragraph":
                     if (currentSectionId) {
                         const blockId = crypto.randomUUID();
+                        const anchors = el.querySelectorAll("a");
+
                         sections[currentSectionId].contents[blockId] = {
                             type: "paragraph",
                             text,
+                            ...(anchors.length > 0 && {
+                                links: anchors.map((a) => ({
+                                    type: "anchor",
+                                    href: a.getAttribute("href") ?? "",
+                                    text: a.innerText ?? "",
+                                })),
+                            }),
                         };
 
                         sections[currentSectionId].contentOrder.push(blockId);
                     }
+
                     break;
 
                 case "list":
                     if (currentSectionId) {
                         const blockId = crypto.randomUUID();
+                        const anchors = el.querySelectorAll("a");
+
                         sections[currentSectionId].contents[blockId] = {
                             type: "list",
                             ordered: el.rawTagName === "ol" ? true : false,
                             items: el
                                 .querySelectorAll("li")
                                 .map((li: HTMLElement) => li.innerText.trim()),
+                            ...(anchors.length > 0 && {
+                                links: anchors.map((a) => ({
+                                    type: "anchor",
+                                    href: a.getAttribute("href") ?? "",
+                                    text: a.innerText ?? "",
+                                })),
+                            }),
                         };
 
                         sections[currentSectionId].contentOrder.push(blockId);
@@ -116,7 +135,7 @@ function detectNodeType(
 
     if (isFirstNode) return "documentTitle";
 
-    if (text === "PAGE BREAK") return "pageBreak";
+    if (text == "PAGE BREAK") return "pageBreak";
 
     if (expectingTopicTitle && isAllBold(node)) return "topicTitle";
 
