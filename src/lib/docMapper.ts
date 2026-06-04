@@ -1,6 +1,6 @@
 import { document, topic } from "@/types/document";
 import parse, { HTMLElement } from "node-html-parser";
-import { isAllBold } from "./helpers";
+import { isAllBold } from "@/lib/helpers";
 import { NodeTypes } from "@/types/nodes";
 
 export function convertToJson(html: string): document {

@@ -1,5 +1,5 @@
-import { document } from "./document";
-import { Actions } from "./actions";
+import { document } from "@/types/document";
+import { Actions } from "@/types/actions";
 import { Dispatch } from "react";
 
 export interface EditorContextType {

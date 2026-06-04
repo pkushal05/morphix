@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useContext, createContext, useReducer } from "react";
 import { reducer, initialState } from "@/reducer/EditorReducer";

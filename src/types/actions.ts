@@ -1,4 +1,4 @@
-import { document } from "./document";
+import { document } from "@/types/document";
 
 export enum ActionTypes {
     LOAD = "load",
