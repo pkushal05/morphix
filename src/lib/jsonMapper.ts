@@ -1,5 +1,4 @@
 import { contentBlock, document } from "../types/document";
-import { parse } from "path";
 
 export function convertToHtmlFragment(parsedJson: document): string {
     const sectionsHtml = parsedJson.sectionOrder

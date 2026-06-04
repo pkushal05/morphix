@@ -6,7 +6,7 @@ export function reducer(state: document, action: Actions): document {
         case ActionTypes.LOAD:
             return action.payload;
 
-        case ActionTypes.UPPDATE_TOPIC_TITLE:
+        case ActionTypes.UPDATE_TOPIC_TITLE:
             return {
                 ...state,
                 sections: {
@@ -34,7 +34,11 @@ export function reducer(state: document, action: Actions): document {
                                 ...state.sections[action.sectionId].contents[
                                     action.blockId
                                 ],
-                                text: action.value,
+                                ...(state.sections[action.sectionId].contents[
+                                    action.blockId
+                                ].type !== "list" && {
+                                    text: action.value,
+                                }),
                             },
                         },
                     },
@@ -54,7 +58,11 @@ export function reducer(state: document, action: Actions): document {
                                 ...state.sections[action.sectionId].contents[
                                     action.blockId
                                 ],
-                                text: action.value,
+                                ...(state.sections[action.sectionId].contents[
+                                    action.blockId
+                                ].type !== "list" && {
+                                    text: action.value,
+                                }),
                             },
                         },
                     },

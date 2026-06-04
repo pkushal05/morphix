@@ -2,7 +2,7 @@ import { document } from "@/types/document";
 
 export enum ActionTypes {
     LOAD = "load",
-    UPPDATE_TOPIC_TITLE = "update_topic_title",
+    UPDATE_TOPIC_TITLE = "update_topic_title",
     UPDATE_HEADING = "update_heading",
     UPDATE_PARAGRAPH = "update_paragraph",
     UPDATE_LIST_ITEM = "update_list_item",
@@ -13,28 +13,28 @@ type LoadAction = { type: ActionTypes.LOAD; payload: document };
 type UpdateHeadingAction = {
     type: ActionTypes.UPDATE_HEADING;
     value: string;
-    sectionId: number;
-    blockId: number;
+    sectionId: string;
+    blockId: string;
 };
 
 type UpdateTopicTitleAction = {
-    type: ActionTypes.UPPDATE_TOPIC_TITLE;
+    type: ActionTypes.UPDATE_TOPIC_TITLE;
     value: string;
-    sectionId: number;
+    sectionId: string;
 };
 
 type UpdateParagraphAction = {
     type: ActionTypes.UPDATE_PARAGRAPH;
     value: string;
-    sectionId: number;
-    blockId: number;
+    sectionId: string;
+    blockId: string;
 };
 
 type UpdateListItemAction = {
     type: ActionTypes.UPDATE_LIST_ITEM;
     value: string;
-    sectionId: number;
-    blockId: number;
+    sectionId: string;
+    blockId: string;
     itemIdx: number;
 };
 
