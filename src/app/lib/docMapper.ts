@@ -93,7 +93,7 @@ export function convertToJson(html: string): document {
 
                         sections[currentSectionId].contents[blockId] = {
                             type: "list",
-                            ordered: el.rawTagName === "ol" ? true : false,
+                            ordered: el.rawTagName === "ol",
                             items: el
                                 .querySelectorAll("li")
                                 .map((li: HTMLElement) => {

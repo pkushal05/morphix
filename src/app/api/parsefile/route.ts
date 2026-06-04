@@ -14,13 +14,9 @@ export async function POST(req: NextRequest) {
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        console.time("mammoth");
         const result = await mammoth.convertToHtml({ buffer });
-        console.timeEnd("mammoth");
 
-        console.time("Conversion");
         const parsedJson = convertToJson(result.value);
-        console.timeEnd("Conversion");
 
         return NextResponse.json({ parsedJson });
     } catch (err) {

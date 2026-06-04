@@ -1,3 +1,5 @@
+"use client"
+
 import { useContext, createContext, useReducer } from "react";
 import { reducer, initialState } from "@/reducer/EditorReducer";
 import { EditorContextType } from "@/types/context";
