@@ -1,25 +1,30 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { gsap } from "gsap";
-
 import { CustomEase } from "gsap/CustomEase";
-
 import { SplitText } from "gsap/SplitText";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(SplitText, CustomEase);
 
+const INTRO_KEY = "intro_seen";
+
 const HomePage = () => {
-    const containerRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef(null);
     const preLoaderContainer = useRef<HTMLDivElement>(null);
     const preLoaderProgress = useRef<HTMLDivElement>(null);
+    const preLoaderParent = useRef<HTMLDivElement>(null);
     const progressBar = useRef<HTMLDivElement>(null);
-    const counter = { value: 0 };
 
-    useEffect(() => {
-        if (!containerRef.current) return;
+    useGSAP(() => {
+        const hasSeenIntro = sessionStorage.getItem(INTRO_KEY) === "1";
+
+        if (hasSeenIntro) {
+            gsap.set(preLoaderParent.current, { display: "none" });
+            return;
+        }
 
         CustomEase.create("hop", "0.9, 0, 0.1, 1");
 
@@ -29,27 +34,39 @@ const HomePage = () => {
             className: string,
         ) => {
             return new SplitText(selector, {
-                type: type,
+                type,
                 [`${type}Class`]: className,
                 mask: type,
             });
         };
 
+        const counter = { value: 0 };
         const headerSplit = splitText(".header h1", "chars", "char");
         const navSplit = splitText("nav .nav-a", "words", "word");
 
-        const tl = gsap.timeline();
+        const tl = gsap.timeline({
+            onComplete: () => {
+                sessionStorage.setItem(INTRO_KEY, "1");
+            },
+        });
 
         tl.to(counter, {
             value: 100,
             duration: 3,
             ease: "power3.out",
-            onUpdate: () => {
-                if (preLoaderContainer) {
-                    preLoaderProgress.current.textContent = Math.floor(
-                        counter.value,
-                    );
+            onStart: () => {
+                if (preLoaderParent.current?.style.display === "none") {
+                    preLoaderParent.current.style.display = "block";
                 }
+            },
+            onUpdate: () => {
+                if (preLoaderContainer.current && preLoaderProgress.current) {
+                    preLoaderProgress.current.textContent = `${Math.floor(counter.value)}`;
+                }
+                gsap.to(preLoaderContainer.current, {
+                    opacity: 100,
+                    duration: 3,
+                });
             },
             onComplete: () => {
                 const preLoaderSplit = splitText(
@@ -63,8 +80,10 @@ const HomePage = () => {
                     ease: "power3.out",
                     stagger: 0.1,
                     delay: 1,
+                    opacity: 0,
                     onComplete: () => {
                         preLoaderContainer.current?.remove();
+                        gsap.set(preLoaderParent.current, { display: "none" });
                     },
                 });
             },
@@ -90,18 +109,24 @@ const HomePage = () => {
             "<",
         );
 
-        tl.to(
+        tl.fromTo(
             ".hero-bg",
             {
+                clipPath: "polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%)",
+                opacity: 0,
+            },
+            {
                 clipPath: "polygon(35% 35%, 65% 35%, 65% 65%, 35% 65%)",
+                opacity: 100,
                 duration: 1.5,
                 ease: "hop",
             },
             4.5,
         );
 
-        tl.to(
+        tl.fromTo(
             ".hero-img",
+            { scale: 2 },
             {
                 scale: 1.5,
                 duration: 1.5,
@@ -133,10 +158,10 @@ const HomePage = () => {
             6,
         );
 
-        tl.to(
+        tl.from(
             ".header h1 .char",
             {
-                x: "0%",
+                x: "100%",
                 duration: 1,
                 ease: "power4.out",
                 stagger: 0.075,
@@ -144,89 +169,65 @@ const HomePage = () => {
             7,
         );
 
-        tl.to(
+        tl.from(
             "nav .nav-a .word",
             {
-                y: "0%",
+                y: "100%",
                 duration: 1,
                 ease: "power4.out",
                 stagger: 0.075,
             },
-            7.5,
+            "<",
         );
 
         return () => {
+            tl.kill();
             headerSplit.revert();
             navSplit.revert();
         };
     }, []);
 
     return (
-        <div
-            className="w-screen min-h-screen overflow-x-hidden"
-            ref={containerRef}
-        >
+        <div className="w-screen min-h-screen " ref={containerRef}>
             {/* Preloader counter: vertically centered left */}
             <div
-                className="preloader-counter fixed top-1/2 left-8 -translate-y-1/2 scale-[0.25] origin-left will-change-transform z-2"
-                ref={preLoaderContainer}
+                className="preloader-parent absolute inset-0 w-full h-full bg-black z-10"
+                ref={preLoaderParent}
             >
-                <h1 className="text-hero" ref={preLoaderProgress}>
-                    0
-                </h1>
+                <div
+                    className="preloader-counter fixed top-1/2 left-8 -translate-y-1/2 scale-[0.25] origin-left will-change-transform opacity-0"
+                    ref={preLoaderContainer}
+                >
+                    <h1 className="text-hero" ref={preLoaderProgress}>
+                        0
+                    </h1>
+                </div>
             </div>
-
-            {/* Navigation */}
-            <nav className="fixed w-full py-8 px-12 flex justify-between items-start z-1">
-                <div className="nav-logo">
-                    <Link
-                        href={"/"}
-                        className="font-poppins font-semibold nav-a"
-                    >
-                        Morphix
-                    </Link>
-                </div>
-
-                <div className="nav-links flex gap-8">
-                    <Link href={"/docs"} className="nav-a">
-                        Docs
-                    </Link>
-                    <Link href={"/upload"} className="nav-a">
-                        Upload
-                    </Link>
-                    <Link href={"/about"} className="nav-a">
-                        About
-                    </Link>
-                </div>
-            </nav>
 
             {/* Hero Area */}
             <section className="hero relative w-full h-screen overflow-hidden">
-                <div className="hero-bg absolute top-0 left-0 w-full h-full -z-1 select-none">
+                <div className="hero-bg absolute top-0 left-0 w-full h-full -z-1 select-none ">
                     <Image
                         src={"/images/landing-page-bg.jpg"}
                         fill
                         alt="Landing page image"
-                        /* Removed top-50% left-50% layout overrides; scaling up from the bottom center instead */
-                        className="hero-img object-contain scale-200 object-bottom will-change-transform"
+                        className="hero-img object-contain object-bottom will-change-transform"
                         priority
                     />
                 </div>
 
-                {/* Header: fixed fraction to top-1/5 (20%) */}
+                {/* Header */}
                 <div className="header font-syne leading-relaxed tracking-wider uppercase font-bold absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2">
                     <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-8xl font-extrabold text-nowrap">
                         Morphix
                     </h1>
                 </div>
 
-                {/* Progress Bar: fixed calc space bug */}
+                {/* Progress Bar */}
                 <div
-                    className="progress-bar absolute left-8 bottom-24 w-[calc(100%-4rem)] h-1.5 bg-stone-100/20 origin-left scale-x-0 will-change-transform overflow-hidden rounded-xl"
+                    className="progress-bar absolute left-8 bottom-20 w-[calc(100%-4rem)] h-1 bg-stone-400 origin-left scale-x-0 will-change-transform overflow-hidden rounded-xl z-10"
                     ref={progressBar}
-                >
-                    <div className="progress absolute w-full h-full bg-stone-100 origin-left scale-x-0"></div>
-                </div>
+                ></div>
             </section>
         </div>
     );

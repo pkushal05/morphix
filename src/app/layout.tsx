@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Syne, Poppins } from "next/font/google";
 import { EditorProvider } from "@/context/EditorContext";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -33,7 +34,13 @@ export default function RootLayout({
             className={`${poppins.variable} ${syne.variable} h-full antialiased`}
         >
             <body className="min-h-full flex flex-col">
-                {<EditorProvider>{children}</EditorProvider>}
+                {
+                    <EditorProvider>
+                        {/* Navigation */}
+                        <Navbar />
+                        {children}
+                    </EditorProvider>
+                }
             </body>
         </html>
     );
