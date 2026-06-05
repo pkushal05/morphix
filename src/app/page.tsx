@@ -42,6 +42,7 @@ const HomePage = () => {
 
         const counter = { value: 0 };
         const headerSplit = splitText(".header h1", "chars", "char");
+        const headerPSplit = splitText(".header p", "words", "word");
         const navSplit = splitText("nav .nav-a", "words", "word");
 
         const tl = gsap.timeline({
@@ -159,7 +160,7 @@ const HomePage = () => {
         );
 
         tl.from(
-            ".header h1 .char",
+            headerSplit.chars,
             {
                 x: "100%",
                 duration: 1,
@@ -169,8 +170,15 @@ const HomePage = () => {
             7,
         );
 
+        tl.from(headerPSplit.words, {
+            y: "100%",
+            duration: 1,
+            ease: "power4.out",
+            stagger: 0.075,
+        }, "<");
+
         tl.from(
-            "nav .nav-a .word",
+            navSplit.words,
             {
                 y: "100%",
                 duration: 1,
@@ -217,10 +225,13 @@ const HomePage = () => {
                 </div>
 
                 {/* Header */}
-                <div className="header font-syne leading-relaxed tracking-wider uppercase font-bold absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-8xl font-extrabold text-nowrap">
+                <div className="header absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-8xl font-extrabold text-nowrap font-syne tracking-wider uppercase">
                         Morphix
                     </h1>
+                    <p className="text-center text-sm md:text-lg text-stone-400 ">
+                        Transform Content
+                    </p>
                 </div>
 
                 {/* Progress Bar */}
