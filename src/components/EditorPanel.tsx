@@ -2,7 +2,7 @@
 import { useEditor } from "@/context/EditorContext";
 import Section from "@/components/Section";
 const EditorPanel = () => {
-    const { state, dispatch } = useEditor();
+    const { state } = useEditor();
 
     return (
         <div>
