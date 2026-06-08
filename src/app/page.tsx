@@ -7,7 +7,8 @@ import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import ScrollBadge from "@/components/ScrollBadge";
+import ScrollBadge from "@/components/HomePage/ScrollBadge";
+import { Problems } from "@/components/HomePage/Problems";
 
 gsap.registerPlugin(SplitText, CustomEase, ScrollTrigger);
 
@@ -195,6 +196,18 @@ const HomePage = () => {
             "<",
         );
 
+        tl.fromTo(
+            badgeRef.current,
+            {
+                opacity: 0,
+            },
+            {
+                opacity: 100,
+                duration: 1,
+            },
+            "<",
+        );
+
         return () => {
             tl.kill();
             headerSplit.revert();
@@ -209,29 +222,33 @@ const HomePage = () => {
                 trigger: containerRef.current,
                 start: "top 70%",
                 toggleActions: "play none none reverse",
-                markers: true,
             },
         });
     }, []);
 
     return (
         <div className="w-screen min-h-screen">
-            <div>
-                {/* Preloader counter*/}
+            {/* Preloader counter*/}
+            <div
+                className="preloader-parent fixed inset-0 w-full h-full bg-black z-50"
+                ref={preLoaderParent}
+            >
                 <div
-                    className="preloader-parent absolute inset-0 w-full h-full bg-black z-10"
-                    ref={preLoaderParent}
+                    className="preloader-counter fixed top-1/2 left-8 -translate-y-1/2 scale-[0.25] origin-left will-change-transform opacity-0"
+                    ref={preLoaderContainer}
                 >
-                    <div
-                        className="preloader-counter fixed top-1/2 left-8 -translate-y-1/2 scale-[0.25] origin-left will-change-transform opacity-0"
-                        ref={preLoaderContainer}
-                    >
-                        <h1 className="text-hero" ref={preLoaderProgress}>
-                            0
-                        </h1>
-                    </div>
+                    <h1 className="text-hero" ref={preLoaderProgress}>
+                        0
+                    </h1>
                 </div>
-
+                {/* Progress Bar */}
+                <div
+                    className="progress-bar fixed left-8 bottom-20 w-[calc(100%-4rem)] h-1 bg-stone-400 origin-left scale-x-0 will-change-transform overflow-hidden rounded-xl"
+                    ref={progressBar}
+                ></div>
+            </div>
+            {/* Hero Section  */}
+            <section className="relative">
                 {/* Hero Area */}
                 <section className="hero relative w-full h-screen overflow-hidden">
                     <div className="hero-bg absolute top-0 left-0 w-full h-full -z-1 select-none">
@@ -253,19 +270,21 @@ const HomePage = () => {
                             Transform Content
                         </p>
                     </div>
-
-                    {/* Progress Bar */}
-                    <div
-                        className="progress-bar absolute left-8 bottom-20 w-[calc(100%-4rem)] h-1 bg-stone-400 origin-left scale-x-0 will-change-transform overflow-hidden rounded-xl z-10"
-                        ref={progressBar}
-                    ></div>
                 </section>
 
                 <div ref={badgeRef}>
                     <ScrollBadge />
                 </div>
-            </div>
-            <div ref={containerRef} className="min-h-screen"></div>
+            </section>
+            {/* 2. THE PROBLEM SECTION */}
+            <section
+                ref={containerRef}
+                className="min-h-screen my-primary bg-stone-950 text-stone-100 py-6 md:py-3 flex flex-col justify-center border-t border-b border-stone-800"
+            >
+                <Problems />
+            </section>
+
+            <section className="h-screen"></section>
         </div>
     );
 };

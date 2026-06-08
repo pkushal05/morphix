@@ -50,8 +50,8 @@ const Navbar = () => {
     }, [isOpen]);
 
     return (
-        <div className="relative">
-            <nav className="fixed w-full py-8 px-12 flex justify-between items-center text-stone-100 z-10">
+        <>
+            <nav className="fixed inset-x-0 top-0 w-full max-w-7xl mx-auto py-5 px-7 flex justify-between items-center text-stone-100 z-50 backdrop-blur-[3px]">
                 <div className="nav-logo" onClick={() => setIsOpen(false)}>
                     <Link
                         href={"/"}
@@ -90,7 +90,7 @@ const Navbar = () => {
             {/* Mobile Menu  */}
             <div
                 ref={navRef}
-                className="navref fixed top-0 -right-1/2 h-screen w-1/2 z-20 p-6"
+                className="navref fixed top-0 -right-1/2 h-screen w-1/2 z-50 p-6"
                 style={{
                     borderRadius: "50%",
                     pointerEvents: isOpen ? "auto" : "none",
@@ -99,7 +99,7 @@ const Navbar = () => {
                 <div className="absolute inset-0 backdrop-blur-xs" />
                 <button
                     onClick={() => setIsOpen(false)}
-                    className="close-menu absolute top-10 right-12 cursor-pointer"
+                    className="close-menu absolute top-6 right-5 cursor-pointer"
                     aria-label="Close menu"
                 >
                     <IoMdClose size={20} />
@@ -139,7 +139,7 @@ const Navbar = () => {
                     </Link>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

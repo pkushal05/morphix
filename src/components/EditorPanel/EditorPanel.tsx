@@ -1,6 +1,6 @@
 "use client";
 import { useEditor } from "@/context/EditorContext";
-import Section from "@/components/Section";
+import Section from "./Section";
 const EditorPanel = () => {
     const { state } = useEditor();
 
