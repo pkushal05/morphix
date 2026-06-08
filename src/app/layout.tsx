@@ -15,7 +15,6 @@ const syne = Syne({
     display: "swap",
 });
 
-// 3. Configure Poppins (Not variable, specify the weights you want)
 const poppins = Poppins({
     variable: "--font-poppins",
     subsets: ["latin"],
@@ -33,7 +32,7 @@ export default function RootLayout({
             lang="en"
             className={`${poppins.variable} ${syne.variable} h-full antialiased`}
         >
-            <body className="min-h-full flex flex-col">
+            <body className="min-h-full flex flex-col overflow-x-hidden">
                 {
                     <EditorProvider>
                         {/* Navigation */}
