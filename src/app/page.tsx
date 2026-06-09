@@ -258,7 +258,7 @@ const HomePage = () => {
                             src={"/images/landing-page-bg.jpg"}
                             fill
                             alt="Landing page image"
-                            className="hero-img object-contain object-bottom will-change-transform"
+                            className="hero-img object-cover md:object-contain object-bottom will-change-transform"
                             priority
                         />
                     </div>
