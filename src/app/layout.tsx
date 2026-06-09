@@ -4,6 +4,7 @@ import { EditorProvider } from "@/context/EditorContext";
 import "./globals.css";
 import Navbar from "@/components/UI/Navbar";
 import SmoothScroll from "@/components/UI/SmoothScroll";
+import { Footer } from "@/components/UI/Footer";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -39,6 +40,7 @@ export default function RootLayout({
                         <SmoothScroll>
                             <Navbar />
                             {children}
+                            <Footer />
                         </SmoothScroll>
                     </EditorProvider>
                 }
