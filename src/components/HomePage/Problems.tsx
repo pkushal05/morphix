@@ -27,8 +27,8 @@ export const Problems = () => {
             scrollTrigger: {
                 trigger: containerRef.current,
                 start: "top 65%",
-                toggleActions: "play reverse play reverse",
-                end: "bottom 20%",
+                toggleActions: "play none none reverse",
+               
             },
         });
 
@@ -63,7 +63,7 @@ export const Problems = () => {
                 duration: 1.9,
                 ease: "power4.out",
             },
-            0.8,
+            0.5,
         );
 
         return () => {
@@ -81,8 +81,8 @@ export const Problems = () => {
         >
             {/* Massive Headline Left */}
             <div className="lg:col-span-6 problem-text">
-                <span className="font-mono text-xs uppercase tracking-widest text-stone-500 block mb-4">
-                    The Pain Point
+                <span className="font-mono text-xs uppercase tracking-widest text-emerald-500 block mb-4">
+                    01 . The Pain Point
                 </span>
                 <h2
                     ref={titleRef}

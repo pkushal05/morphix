@@ -9,6 +9,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import ScrollBadge from "@/components/HomePage/ScrollBadge";
 import { Problems } from "@/components/HomePage/Problems";
+import { Solution } from "@/components/HomePage/Solution";
 
 gsap.registerPlugin(SplitText, CustomEase, ScrollTrigger);
 
@@ -186,7 +187,7 @@ const HomePage = () => {
         );
 
         tl.from(
-            navSplit.words,
+            [navSplit.words, ".open-menu"],
             {
                 y: "100%",
                 duration: 1,
@@ -279,12 +280,12 @@ const HomePage = () => {
             {/* 2. THE PROBLEM SECTION */}
             <section
                 ref={containerRef}
-                className="min-h-screen my-primary bg-stone-950 text-stone-100 py-6 md:py-3 flex flex-col justify-center border-t border-b border-stone-800"
+                className="min-h-screen mt-primary bg-stone-950 text-stone-100 py-6 md:py-3 flex flex-col justify-center border-t border-stone-800"
             >
                 <Problems />
             </section>
 
-            <section className="h-screen"></section>
+            <Solution />
         </div>
     );
 };

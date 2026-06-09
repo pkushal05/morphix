@@ -78,13 +78,16 @@ const Navbar = () => {
                         </Link>
                     ))}
                 </div>
-                <button
-                    onClick={() => setIsOpen(true)}
-                    className={`lg:hidden cursor-pointer ${isOpen && "hidden"}`}
-                    aria-label="Open menu"
-                >
-                    <CgMenuRight size={20} />
-                </button>
+
+                <div className="lg:hidden overflow-hidden inline-block dynamic-height-alignment">
+                    <button
+                        onClick={() => setIsOpen(true)}
+                        className={`open-menu cursor-pointer block ${isOpen && "hidden"}`}
+                        aria-label="Open menu"
+                    >
+                        <CgMenuRight size={20} />
+                    </button>
+                </div>
             </nav>
 
             {/* Mobile Menu  */}
