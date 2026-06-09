@@ -63,7 +63,7 @@ export const Problems = () => {
                 duration: 1.9,
                 ease: "power4.out",
             },
-            0.5,
+            "<",
         );
 
         return () => {

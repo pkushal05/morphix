@@ -3,13 +3,21 @@
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { SplitText } from "gsap/SplitText";
+import { PIPELINESTEPS } from "@/lib/data";
 
 export const Solution = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const cardsRef = useRef<HTMLDivElement[]>([]);
+    const headingRef = useRef<HTMLHeadingElement>(null);
 
     useGSAP(
         () => {
+            const titleSplit = new SplitText(headingRef.current, {
+                type: "lines",
+                mask: "lines",
+            });
+
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: sectionRef.current,
@@ -18,13 +26,27 @@ export const Solution = () => {
                 },
             });
 
-            tl.from(cardsRef.current, {
-                y: 50,
+            tl.from(titleSplit.lines, {
+                y: 20,
+                rotation: -5,
+                filter: "blur(10px)",
                 opacity: 0,
-                duration: 1,
-                stagger: 0.25,
+                stagger: 0.08,
+                duration: 1.4,
                 ease: "power4.out",
             });
+
+            tl.from(
+                cardsRef.current,
+                {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.25,
+                    ease: "power4.out",
+                },
+                "<",
+            );
 
             const chars = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
             const targetWord = "CHAOS";
@@ -91,31 +113,10 @@ export const Solution = () => {
         { scope: sectionRef },
     );
 
-    const pipelineSteps = [
-        {
-            step: "01",
-            title: "Ingestion Engine",
-            desc: "Drop in your raw educational DOCX. Morphix maps the document layout tree using custom Mammoth.js parsing pipelines.",
-            badge: "MAMMOTH.TS",
-        },
-        {
-            step: "02",
-            title: "Structural Normalization",
-            desc: "Optimized for complex academic curriculum like Durham College's Professional and Part-Time Learning workflows, the parser strips systemic Microsoft styling noise to generate clean, normalized semantic schemas.",
-            badge: "TS_SCHEMA",
-        },
-        {
-            step: "03",
-            title: "Multi-Format Output",
-            desc: "Instantly compile structured JSON arrays for databases or beautiful responsive, component-ready HTML strings.",
-            badge: "JSON / HTML",
-        },
-    ];
-
     return (
         <section
             ref={sectionRef}
-            className="w-full min-h-screen pt-primary flex flex-col justify-center items-center px-7 border-t border-stone-800"
+            className="w-full min-h-screen py-primary flex flex-col justify-center items-center px-7 border-t border-stone-800"
         >
             <div className="max-w-7xl w-full">
                 {/* Header Context */}
@@ -123,7 +124,10 @@ export const Solution = () => {
                     <span className="font-mono text-xs uppercase tracking-widest text-emerald-500 block mb-4">
                         02 . THE PIPELINE
                     </span>
-                    <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-syne uppercase tracking-tight text-stone-100 leading-[0.95]">
+                    <h2
+                        ref={headingRef}
+                        className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-syne uppercase tracking-tight text-stone-100 leading-[0.95]"
+                    >
                         Document{" "}
                         <span className="chaos-word block md:inline-block font-mono min-w-[5ch] text-stone-400">
                             CHAOS
@@ -145,19 +149,19 @@ export const Solution = () => {
 
                 {/* Pipeline Cards Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-                    {pipelineSteps.map((item, index) => (
+                    {PIPELINESTEPS.map((item, index) => (
                         <div
                             key={index}
                             ref={(el) => {
                                 if (el) cardsRef.current[index] = el;
                             }}
-                            className="bg-stone-900/20 border border-stone-800/80 p-8 rounded-xl flex flex-col justify-between relative overflow-hidden group hover:border-stone-700 transition-colors duration-300 min-h-80"
+                            className="bg-stone-900/20 border border-stone-800/80 p-8 rounded-xl flex flex-col justify-between relative overflow-hidden group hover:border-stone-700 transition-colors duration-300 min-h-60"
                         >
                             {/* Accent blur on hover */}
                             <div className="absolute -right-12 -top-12 w-24 h-24 bg-emerald-500/5 blur-xl rounded-full group-hover:bg-emerald-500/10 transition-all duration-500" />
 
                             <div>
-                                <div className="flex justify-between items-center mb-10">
+                                <div className="flex justify-between items-center mb-7">
                                     <span className="font-mono text-2xl font-bold text-stone-700 group-hover:text-emerald-500 transition-colors duration-300">
                                         {item.step}
                                     </span>

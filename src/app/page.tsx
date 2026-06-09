@@ -10,6 +10,7 @@ import { useGSAP } from "@gsap/react";
 import ScrollBadge from "@/components/HomePage/ScrollBadge";
 import { Problems } from "@/components/HomePage/Problems";
 import { Solution } from "@/components/HomePage/Solution";
+import { CTA } from "@/components/HomePage/CTA";
 
 gsap.registerPlugin(SplitText, CustomEase, ScrollTrigger);
 
@@ -286,6 +287,8 @@ const HomePage = () => {
             </section>
 
             <Solution />
+
+            <CTA />
         </div>
     );
 };
