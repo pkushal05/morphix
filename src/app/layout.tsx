@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/UI/Navbar";
 import SmoothScroll from "@/components/UI/SmoothScroll";
 import { Footer } from "@/components/UI/Footer";
+import { TransitionProvider } from "@/components/UI/TransitionProvider";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -38,9 +39,11 @@ export default function RootLayout({
                 {
                     <EditorProvider>
                         <SmoothScroll>
-                            <Navbar />
-                            {children}
-                            <Footer />
+                            <TransitionProvider>
+                                <Navbar />
+                                {children}
+                                <Footer />
+                            </TransitionProvider>
                         </SmoothScroll>
                     </EditorProvider>
                 }

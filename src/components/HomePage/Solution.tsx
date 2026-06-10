@@ -109,6 +109,8 @@ export const Solution = () => {
                     duration: 0.3,
                     ease: "power2.out",
                 });
+
+            return () => titleSplit.revert();
         },
         { scope: sectionRef },
     );

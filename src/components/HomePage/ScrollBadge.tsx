@@ -7,7 +7,7 @@ const ScrollBadge = () => {
     const center = 100;
 
     return (
-        <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 lg:bottom-8 lg:right-8 z-5 flex items-center justify-center select-none w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28">
+        <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 lg:bottom-8 lg:right-8 -z-5 flex items-center justify-center pointer-events-none w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28">
             <svg
                 viewBox="0 0 200 200"
                 className="w-full h-full animate-[spin_12s_linear_infinite] text-stone-400 fill-current"

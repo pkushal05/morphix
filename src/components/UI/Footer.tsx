@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export const Footer = () => {
     return (
-        <footer className="w-full max-w-7xl mx-auto h-[50svh] text-stone-500 text-xs py-12 px-7 border-t border-stone-900 bg-stone-950">
-            <div className="w-full h-full max-h-[80%] flex flex-col md:flex-row justify-between gap-y-10 md:gap-y-0">
+        <footer className="w-full  h-64 text-stone-500 text-xs py-12  border-t border-stone-900 bg-stone-950">
+            <div className="max-w-7xl mx-auto h-full flex flex-col md:flex-row justify-between gap-y-10 md:gap-y-0 px-7">
                 <div className="flex flex-col justify-between h-full gap-y-5">
                     <div>
                         <h2 className="text-lg md:text-2xl uppercase text-stone-200 tracking-wider">
