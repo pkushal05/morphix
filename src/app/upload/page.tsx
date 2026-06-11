@@ -132,7 +132,7 @@ export default function UploadPage() {
             const data = await res.json();
 
             dispatch({
-                type: ActionTypes.LOAD,
+                type: ActionTypes.LOAD_STATE,
                 payload: data.parsedJson,
             });
             router.push("/editor");
@@ -242,7 +242,7 @@ export default function UploadPage() {
                 <div className="w-full flex justify-center">
                     <button
                         type="submit"
-                        disabled={isUploading || !file}
+                        disabled={isUploading}
                         className="px-5 py-3 border border-stone-700 rounded-xl cursor-pointer hover:border-stone-500 text-stone-700 hover:text-stone-500 transition-all duration-200 active:scale-95 active:border-emerald-600 active:text-emerald-400"
                     >
                         {isUploading ? "Processing..." : "Parse Document"}

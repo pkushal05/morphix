@@ -3,7 +3,10 @@ import { Actions, ActionTypes } from "@/types/actions";
 
 export function reducer(state: document, action: Actions): document {
     switch (action.type) {
-        case ActionTypes.LOAD:
+        case ActionTypes.LOAD_STATE:
+            return action.payload;
+
+        case ActionTypes.LOAD_STORAGE_STATE:
             return action.payload;
 
         case ActionTypes.UPDATE_TOPIC_TITLE:

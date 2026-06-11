@@ -13,7 +13,7 @@ const Section = ({ sectionId }: SectionProps) => {
 
     return (
         <div className="border-2 border-dashed border-stone-800 rounded-md px-4 py-6 flex flex-col">
-            <div className="border-b border-stone-800 pb-2 flex items-center w-full">
+            <div className=" pb-2 flex items-center w-full">
                 <WorkspaceInput
                     label="Topic:"
                     variant="inline-header"
@@ -29,7 +29,7 @@ const Section = ({ sectionId }: SectionProps) => {
             </div>
 
             <div className="flex flex-col gap-y-6">
-                {section.contentOrder.map((blockId) => {
+                {section.contentOrder.map((blockId, idx) => {
                     const block = section.contents[blockId];
 
                     if (!block) return null;
@@ -40,10 +40,21 @@ const Section = ({ sectionId }: SectionProps) => {
                                 <HeadingBlock
                                     sectionId={sectionId}
                                     blockId={blockId}
+                                    key={idx}
                                 />
                             );
 
-                        
+                        case "paragraph":
+                            return (
+                                <ParagraphBlock
+                                    sectionId={sectionId}
+                                    blockId={blockId}
+                                    key={idx}
+                                />
+                            );
+
+                        default:
+                            return "<p>Cant find it</p>";
                     }
                 })}
             </div>

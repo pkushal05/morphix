@@ -1,14 +1,17 @@
 import { document } from "@/types/document";
 
 export enum ActionTypes {
-    LOAD = "load",
+    LOAD_STATE = "load",
+    LOAD_STORAGE_STATE = "load_storage",
     UPDATE_TOPIC_TITLE = "update_topic_title",
     UPDATE_HEADING = "update_heading",
     UPDATE_PARAGRAPH = "update_paragraph",
     UPDATE_LIST_ITEM = "update_list_item",
 }
 
-type LoadAction = { type: ActionTypes.LOAD; payload: document };
+type LoadAction = { type: ActionTypes.LOAD_STATE; payload: document };
+
+type LoadStorage = { type: ActionTypes.LOAD_STORAGE_STATE; payload: document };
 
 type UpdateHeadingAction = {
     type: ActionTypes.UPDATE_HEADING;
@@ -40,6 +43,7 @@ type UpdateListItemAction = {
 
 export type Actions =
     | LoadAction
+    | LoadStorage
     | UpdateHeadingAction
     | UpdateParagraphAction
     | UpdateTopicTitleAction

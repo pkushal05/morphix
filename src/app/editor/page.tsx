@@ -1,4 +1,5 @@
 import EditorPanel from "@/components/EditorPanel/EditorPanel";
+import PreviewPanel from "@/components/PreviewPanel/PreviewPanel";
 import React from "react";
 import { Group, Panel, Separator } from "react-resizable-panels";
 
@@ -38,7 +39,9 @@ const EditorPage = () => {
                             data-lenis-prevent
                             defaultSize={"50"}
                             minSize={"30"}
-                        ></Panel>
+                        >
+                            <PreviewPanel />
+                        </Panel>
                     </Group>
                 </div>
             </div>
