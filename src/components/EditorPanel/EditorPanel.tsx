@@ -5,10 +5,10 @@ const EditorPanel = () => {
     const { state } = useEditor();
 
     return (
-        <div>
-            {state.sectionOrder.map((sectionId) => (
-                <Section sectionId={sectionId} key={sectionId} />
-            ))}
+        <div className="max-w-xl mx-auto p-3">
+            {state.sectionOrder.map((sectionId) => {
+                return <Section sectionId={sectionId} key={sectionId} />;
+            })}
         </div>
     );
 };

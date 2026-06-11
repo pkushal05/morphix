@@ -51,7 +51,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="fixed inset-x-0 top-0 w-full max-w-7xl mx-auto py-5 px-7 flex justify-between items-center text-stone-100 z-50 backdrop-blur-[3px]">
+            <nav className="fixed inset-x-0 top-0 w-full max-w-7xl mx-auto py-5 px-7 flex justify-between items-center text-stone-100 z-50 backdrop-blur-[3px] rounded-b-xl">
                 <div className="nav-logo" onClick={() => setIsOpen(false)}>
                     <Link
                         href={"/"}

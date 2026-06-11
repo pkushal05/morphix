@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Syne:wght@400..800&display=swap");
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
     --foreground: #ffffff;
@@ -15,6 +16,33 @@
     --font-poppins: "Poppins", sans-serif;
     --text-hero: clamp(2.5rem, 25vw, 25rem);
     --text-brand: clamp(5rem, 18.5vw, 20rem);
+}
+
+@import "tailwindcss";
+
+@utility custom-scrollbar {
+    /* For Chrome, Safari, and Edge */
+    &::-webkit-scrollbar {
+        width: 4px;
+        height: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--color-stone-800);
+        border-radius: 9999px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: var(--color-emerald-500);
+    }
+
+    /* For Firefox styling support */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-stone-800) transparent;
 }
 
 body {
