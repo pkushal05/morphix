@@ -53,6 +53,14 @@ const Section = ({ sectionId }: SectionProps) => {
                                 />
                             );
 
+                        case "list":
+                            return (
+                                <ListBlock
+                                    sectionId={sectionId}
+                                    blockId={blockId}
+                                    key={idx}
+                                />
+                            );
                         default:
                             return "<p>Cant find it</p>";
                     }

@@ -26,7 +26,7 @@ export default function WorkspaceInput({
                 )}
                 <input
                     type="text"
-                    className={`w-full bg-transparent text-stone-100 font-syne font-semibold text-sm placeholder-stone-700 focus:outline-none border-b border-transparent hover:border-stone-800/60 focus:border-emerald-500/60 pb-1 transition-colors ${className}`}
+                    className={`w-full bg-transparent text-stone-100 font-syne font-semibold text-base placeholder-stone-700 focus:outline-none border-b border-transparent hover:border-stone-800/60 focus:border-emerald-500/60 pb-1 transition-colors text-center ${className}`}
                     {...props}
                 />
             </div>

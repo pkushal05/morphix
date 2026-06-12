@@ -24,53 +24,87 @@ export function reducer(state: document, action: Actions): document {
                 },
             };
 
-        case ActionTypes.UPDATE_PARAGRAPH:
+        case ActionTypes.UPDATE_PARAGRAPH: {
+            const section = state.sections[action.sectionId];
+            const targetBlock = section?.contents?.[action.blockId];
+
+            if (!section || !targetBlock) return state;
+
             return {
                 ...state,
                 sections: {
                     ...state.sections,
                     [action.sectionId]: {
-                        ...state.sections[action.sectionId],
+                        ...section,
                         contents: {
-                            ...state.sections[action.sectionId].contents,
+                            ...section.contents,
                             [action.blockId]: {
-                                ...state.sections[action.sectionId].contents[
-                                    action.blockId
-                                ],
-                                ...(state.sections[action.sectionId].contents[
-                                    action.blockId
-                                ].type !== "list" && {
+                                ...targetBlock,
+                                ...(targetBlock.type !== "list" && {
                                     text: action.value,
                                 }),
                             },
                         },
                     },
                 },
+            };
+        }
+
+        case ActionTypes.UPDATE_HEADING: {
+            const section = state.sections[action.sectionId];
+            const targetBlock = section?.contents?.[action.blockId];
+
+            if (!section || !targetBlock) return state;
+
+            return {
+                ...state,
+                sections: {
+                    ...state.sections,
+                    [action.sectionId]: {
+                        ...section,
+                        contents: {
+                            ...section.contents,
+                            [action.blockId]: {
+                                ...targetBlock,
+                                ...(targetBlock.type !== "list" && {
+                                    text: action.value,
+                                }),
+                            },
+                        },
+                    },
+                },
+            };
+        }
+
+        case ActionTypes.UPDATE_LIST_ITEM: {
+            const section = state.sections[action.sectionId];
+            const targetBlock = section?.contents?.[action.blockId];
+
+            if (!targetBlock || targetBlock.type !== "list") return state;
+
+            const updateItems = [...targetBlock.items];
+            updateItems[action.itemIdx] = {
+                ...updateItems[action.itemIdx],
+                text: action.value,
             };
 
-        case ActionTypes.UPDATE_HEADING:
             return {
                 ...state,
                 sections: {
                     ...state.sections,
                     [action.sectionId]: {
-                        ...state.sections[action.sectionId],
+                        ...section,
                         contents: {
-                            ...state.sections[action.sectionId].contents,
+                            ...section.contents,
                             [action.blockId]: {
-                                ...state.sections[action.sectionId].contents[
-                                    action.blockId
-                                ],
-                                ...(state.sections[action.sectionId].contents[
-                                    action.blockId
-                                ].type !== "list" && {
-                                    text: action.value,
-                                }),
+                                ...targetBlock,
+                                items: updateItems,
                             },
                         },
                     },
                 },
             };
+        }
 
         default:
             return state;

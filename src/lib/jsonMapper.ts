@@ -56,7 +56,7 @@ function buildBlock(block: contentBlock): string {
         case "list":
             const tag = block.ordered ? "ol" : "ul";
             const items = block.items
-                .map((item) => `<li>${item}</li>`)
+                .map((item) => `<li>${item.text}</li>`)
                 .join("");
 
             return `<${tag}>${items}</${tag}>`;
