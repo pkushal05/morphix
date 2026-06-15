@@ -56,7 +56,7 @@ export const TransformAnimation = ({
                             <textPath
                                 id="marquee-first"
                                 href="#first-curve"
-                                className="fill-stone-500/40 font-normal lowercase"
+                                className="fill-stone-500 font-normal lowercase"
                             >
                                 {LEFT_TEXT}
                             </textPath>
@@ -97,7 +97,7 @@ export const TransformAnimation = ({
                             <textPath
                                 id="marquee-second"
                                 href="#second-curve"
-                                className="fill-emerald-400 font-medium uppercase tracking-wide [baseline-shift:-30%]"
+                                className="fill-emerald-400 font-medium  tracking-wide [baseline-shift:-30%]"
                             >
                                 {RIGHT_TEXT}
                             </textPath>

@@ -12,7 +12,8 @@ type ListItem = {
     text: string;
     links?: AnchorBlock[];
 };
-// Omit standard onChange so your custom string[] state handler passes through perfectly
+
+
 interface WorkSpaceListInputProps extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
     "onChange"

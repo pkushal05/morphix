@@ -1,7 +1,7 @@
 import { document, topic } from "@/types/document";
 import parse, { HTMLElement } from "node-html-parser";
 import { isAllBold } from "@/lib/helpers";
-import { NodeTypes } from "@/types/nodes";
+import { DetectedNode } from "@/types/nodes";
 
 export function convertToJson(html: string): document {
     let documentTitle: string = "";
@@ -22,13 +22,13 @@ export function convertToJson(html: string): document {
             const text = el.innerText?.trim();
             if (!text || text === "") continue;
 
-            const nodeType = detectNodeType(
+            const { type, level } = detectNodeType(
                 el,
                 isFirstNode,
                 expectingTopicTitle,
             );
 
-            switch (nodeType) {
+            switch (type) {
                 case "documentTitle":
                     isFirstNode = false;
                     documentTitle = text;
@@ -57,7 +57,7 @@ export function convertToJson(html: string): document {
                         const blockId = crypto.randomUUID();
                         sections[currentSectionId].contents[blockId] = {
                             type: "heading",
-                            level: 2,
+                            level: level ?? 2,
                             text,
                         };
 
@@ -134,23 +134,37 @@ function detectNodeType(
     node: HTMLElement,
     isFirstNode: boolean,
     expectingTopicTitle: boolean,
-): NodeTypes {
+): DetectedNode {
     const tag = node.rawTagName?.toLowerCase();
     const text = node.innerText?.trim();
 
-    if (!text) return "unknown";
+    if (!text) return { type: "unknown" };
 
-    if (isFirstNode) return "documentTitle";
+    if (isFirstNode) return { type: "documentTitle" };
 
-    if (text == "PAGE BREAK") return "pageBreak";
+    if (text == "PAGE BREAK") return { type: "pageBreak" };
 
-    if (expectingTopicTitle && isAllBold(node)) return "topicTitle";
+    if (tag && /^h[1-6]$/.test(tag)) {
+        const match = tag.match(/^h([1-6])$/);
+        const level = (match ? parseInt(match[1], 10) : 2) as
+            | 1
+            | 2
+            | 3
+            | 4
+            | 5
+            | 6;
+        if (expectingTopicTitle) return { type: "topicTitle", level: 1 };
+        return { type: "heading", level };
+    }
 
-    if (tag === "p" && isAllBold(node)) return "heading";
+    if (expectingTopicTitle && isAllBold(node))
+        return { type: "topicTitle", level: 1 };
 
-    if (tag === "p") return "paragraph";
+    if (tag === "p" && isAllBold(node)) return { type: "heading", level: 2 };
 
-    if (tag === "ul" || tag === "ol") return "list";
+    if (tag === "p") return { type: "paragraph" };
 
-    return "unknown";
+    if (tag === "ul" || tag === "ol") return { type: "list" };
+
+    return { type: "unknown" };
 }
