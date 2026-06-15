@@ -14,9 +14,9 @@ const DocsPage = () => {
     ];
 
     const gettingStartedItems = [
-        { id: "blueprint", label: "Blueprint" },
-        { id: "upload", label: "Upload" },
-        { id: "export", label: "Export" },
+        { id: "blueprint", label: "1. Blueprint" },
+        { id: "upload", label: "2. Upload" },
+        { id: "export", label: "3. Export" },
     ];
 
     const tutorialItems = [{ id: "walkthrough", label: "Walkthrough" }];
