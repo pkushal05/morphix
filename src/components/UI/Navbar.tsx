@@ -99,7 +99,7 @@ const Navbar = () => {
                     pointerEvents: isOpen ? "auto" : "none",
                 }}
             >
-                <div className="absolute inset-0 backdrop-blur-xs" />
+                <div className="absolute inset-0 backdrop-blur-[3px]" />
                 <button
                     onClick={() => setIsOpen(false)}
                     className="close-menu absolute top-6 right-5 cursor-pointer"
