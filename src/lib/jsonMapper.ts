@@ -1,4 +1,4 @@
-import { contentBlock, document } from "../types/document";
+import { contentBlock, document, topic } from "../types/document";
 
 export function convertToHtmlFragment(parsedJson: document): string {
     const sectionsHtml = parsedJson.sectionOrder
@@ -25,6 +25,36 @@ export function convertToHtmlFragment(parsedJson: document): string {
     return sectionsHtml;
 }
 
+export function convertToSectionFragment(sectionJosn: topic): string {
+    const sectionHtml = sectionJosn.contentOrder
+        .map((blockId) => {
+            const block = sectionJosn.contents[blockId];
+
+            return buildBlock(block);
+        })
+        .join("");
+
+    return `
+            <section>
+                <h1>${sectionJosn.title.text}</h1>
+                ${sectionHtml}
+            </section>`;
+}
+
+export function convertToSection(sectionJson: topic): string {
+    return `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>${sectionJson.title.text}</title>
+        </head>
+        <body>
+            ${convertToSectionFragment(sectionJson)}
+        </body>
+        </html>
+    `;
+}
+
 export function convertToHtml(parsedJson: document): string {
     return `
         <!DOCTYPE html>
@@ -38,6 +68,8 @@ export function convertToHtml(parsedJson: document): string {
         </html>
     `;
 }
+
+// export function convertToMultipleHtml(sections: )
 
 function buildBlock(block: contentBlock): string {
     switch (block.type) {

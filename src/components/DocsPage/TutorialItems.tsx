@@ -133,7 +133,7 @@ export const TutorialItems = ({ activeTab }: { activeTab: string }) => {
                         <div className="ml-3.5 my-5 ">
                             <ol className="tracking-wider text-[15px] md:text-base leading-relaxed [&>li]:list-decimal [&>li]:mt-2">
                                 <li>
-                                    In Module 1, find the second bullet under
+                                    In Section 1, find the second bullet under
                                     &quot;Core Learning Outcomes&quot; —
                                     <span className="px-1.5 py-0.5 mx-1 bg-stone-400/20 text-[13px] rounded-lg">
                                         Implement reactive state hooks to manage

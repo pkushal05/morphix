@@ -31,11 +31,12 @@ export function convertToJson(html: string): document {
             switch (type) {
                 case "documentTitle":
                     isFirstNode = false;
-                    documentTitle = text;
+                    documentTitle = text.length === 0 ? "Course Document" : text;
                     break;
 
                 case "pageBreak":
                     expectingTopicTitle = true;
+                    isFirstNode = false;
                     continue;
 
                 case "topicTitle":
@@ -117,6 +118,10 @@ export function convertToJson(html: string): document {
                         sections[currentSectionId].contentOrder.push(blockId);
                     }
                     break;
+
+                case "unknown":
+                    isFirstNode = false;
+                    break;
             }
         }
     } catch (err) {
@@ -140,9 +145,18 @@ function detectNodeType(
 
     if (!text) return { type: "unknown" };
 
-    if (isFirstNode) return { type: "documentTitle" };
+    if (text.toUpperCase() === "PAGE BREAK") {
+        return { type: "pageBreak" };
+    }
 
-    if (text == "PAGE BREAK") return { type: "pageBreak" };
+    if (expectingTopicTitle) {
+        if ((tag && /^h[1-6]$/.test(tag)) || isAllBold(node)) {
+            return { type: "topicTitle", level: 1 };
+        }
+    }
+    if (isFirstNode && !expectingTopicTitle) {
+        return { type: "documentTitle" };
+    }
 
     if (tag && /^h[1-6]$/.test(tag)) {
         const match = tag.match(/^h([1-6])$/);
@@ -153,12 +167,8 @@ function detectNodeType(
             | 4
             | 5
             | 6;
-        if (expectingTopicTitle) return { type: "topicTitle", level: 1 };
         return { type: "heading", level };
     }
-
-    if (expectingTopicTitle && isAllBold(node))
-        return { type: "topicTitle", level: 1 };
 
     if (tag === "p" && isAllBold(node)) return { type: "heading", level: 2 };
 

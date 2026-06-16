@@ -1,5 +1,5 @@
 export type document = {
-    documentTitle: string;
+    documentTitle?: string;
     sections: Record<string, topic>;
     sectionOrder: string[];
 };
