@@ -8,6 +8,7 @@ import { Footer } from "@/components/UI/Footer";
 import { TransitionProvider } from "@/components/UI/TransitionProvider";
 
 export const metadata: Metadata = {
+    metadataBase: new URL("https://morphix.kushalpatel.me"),
     title: {
         default: "Morphix",
         template: "%s | Morphix",
@@ -33,7 +34,14 @@ export const metadata: Metadata = {
         description:
             "Transform raw document structures. Engineered explicitly for the Professional and Part-Time Learning department at Durham College.",
         url: "https://morphix.kushalpatel.me",
-        images: [{ url: "/images/morphix-home.png" }],
+        images: [
+            {
+                url: "/images/morphix-home.png",
+                width: 1200,
+                height: 630,
+                alt: "Morphix Platform Preview",
+            },
+        ],
         siteName: "Morphix",
         locale: "en_CA",
         type: "website",
