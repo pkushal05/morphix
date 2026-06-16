@@ -7,6 +7,7 @@ import React, { ChangeEvent, useRef, useState } from "react";
 import { useEditor } from "@/context/EditorContext";
 import { ActionTypes } from "@/types/actions";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/UI/Loading";
 
 export default function UploadPage() {
     const [isDragActive, setIsDragActive] = useState(false);
@@ -135,17 +136,21 @@ export default function UploadPage() {
                 type: ActionTypes.LOAD_STATE,
                 payload: data.parsedJson,
             });
+
             router.push("/editor");
+            
+            setIsUploading(false);
+
         } catch (err: unknown) {
             setError(
                 err instanceof Error
                     ? err.message
                     : "An unexpected execution error occured",
             );
-        } finally {
-            setIsUploading(false);
         }
     };
+
+    if (isUploading) return <Loading />;
 
     return (
         <form

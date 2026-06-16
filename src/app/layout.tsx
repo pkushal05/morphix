@@ -6,6 +6,7 @@ import Navbar from "@/components/UI/Navbar";
 import SmoothScroll from "@/components/UI/SmoothScroll";
 import { Footer } from "@/components/UI/Footer";
 import { TransitionProvider } from "@/components/UI/TransitionProvider";
+import Loading from "@/components/UI/Loading";
 
 export const metadata: Metadata = {
     title: "Create Next App",

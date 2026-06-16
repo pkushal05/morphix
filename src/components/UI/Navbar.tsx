@@ -16,7 +16,6 @@ const Navbar = () => {
         { href: "/", label: "Home" },
         { href: "/docs", label: "Docs" },
         { href: "/upload", label: "Upload" },
-        { href: "/about", label: "About" },
     ];
 
     useGSAP(() => {
@@ -132,13 +131,6 @@ const Navbar = () => {
                         onClick={() => setIsOpen(false)}
                     >
                         Upload
-                    </Link>
-                    <Link
-                        href={"/about"}
-                        className="mobile-link text-xl md:text-2xl hover:underline hover:text-stone-400 transition-all duration-150 ease-in"
-                        onClick={() => setIsOpen(false)}
-                    >
-                        About
                     </Link>
                 </div>
             </div>
