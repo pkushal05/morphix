@@ -123,7 +123,7 @@ export const Solution = () => {
             <div className="max-w-7xl w-full">
                 {/* Header Context */}
                 <div className="mb-20 text-right flex flex-col items-end">
-                    <span className="font-mono text-xs uppercase tracking-widest text-emerald-500 block mb-4">
+                    <span className="font-mono text-xs uppercase tracking-widest text-green block mb-4">
                         02 . THE PIPELINE
                     </span>
                     <h2
@@ -135,7 +135,7 @@ export const Solution = () => {
                             CHAOS
                         </span>
                         <span className="block">To Type-</span>
-                        <span className="safe-container inline-flex items-center relative text-emerald-500">
+                        <span className="safe-container inline-flex items-center relative text-green">
                             <span className="safe-left-bracket inline-block will-change-transform opacity-0 font-mono text-emerald-600/60 pr-1">
                                 &lt;
                             </span>
@@ -164,7 +164,7 @@ export const Solution = () => {
 
                             <div>
                                 <div className="flex justify-between items-center mb-7">
-                                    <span className="font-mono text-2xl font-bold text-stone-700 group-hover:text-emerald-500 transition-colors duration-300">
+                                    <span className="font-mono text-2xl font-bold text-stone-700 group-hover:text-green transition-colors duration-300">
                                         {item.step}
                                     </span>
                                     <span className="font-mono text-[10px] uppercase tracking-wider text-stone-500 border border-stone-800 px-2.5 py-1 rounded bg-stone-950">

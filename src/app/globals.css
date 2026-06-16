@@ -5,14 +5,14 @@
 :root {
     --foreground: #ffffff;
     --background: #000000;
+    --green: #0b8261;
     --spacing-primary: 3.5rem;
 }
 
 @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
-    --spacing-primary: var(--spacing-primary);
-    --font-syne: "Syne", sans-serif;
+    --color-green: var(--green);
     --font-poppins: "Poppins", sans-serif;
     --text-hero: clamp(2.5rem, 25vw, 25rem);
     --text-brand: clamp(5rem, 18.5vw, 20rem);

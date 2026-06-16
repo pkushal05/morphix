@@ -1,6 +1,7 @@
 "use client";
 import { GettingStartedItems } from "@/components/DocsPage/GettingStartedItems";
 import { OverviewItems } from "@/components/DocsPage/OverviewItems";
+import { TutorialItems } from "@/components/DocsPage/TutorialItems";
 import { useState } from "react";
 import { RxCaretRight } from "react-icons/rx";
 
@@ -221,6 +222,7 @@ const DocsPage = () => {
             <div className="flex-1">
                 <OverviewItems activeTab={activeTab} />
                 <GettingStartedItems activeTab={activeTab} />
+                <TutorialItems activeTab={activeTab} />
             </div>
         </div>
     );

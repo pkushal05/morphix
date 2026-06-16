@@ -81,7 +81,7 @@ export const Problems = () => {
         >
             {/* Massive Headline Left */}
             <div className="lg:col-span-6 problem-text">
-                <span className="font-mono text-xs uppercase tracking-widest text-emerald-500 block mb-4">
+                <span className="font-mono text-xs uppercase tracking-widest text-green block mb-4">
                     01 . The Pain Point
                 </span>
                 <h2

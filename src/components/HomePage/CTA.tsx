@@ -41,7 +41,7 @@ export const CTA = () => {
             className="w-full py-primary flex flex-col items-center px-7 border-t border-stone-800 relative"
         >
             <div className="max-w-5xl w-full flex flex-col items-center">
-                <span className="text-xs font-mono uppercase tracking-widest text-emerald-500 mb-6 mt-4">
+                <span className="text-xs font-mono uppercase tracking-widest text-green mb-6 mt-4">
                     DC_PPL.CORE_INFRASTRUCTURE
                 </span>
                 <h2
