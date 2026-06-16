@@ -31,8 +31,9 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Morphix | Course Content Engineering Engine",
         description:
-            "Automate the breakdown of educational DOCX assets into clean, structured course JSON and modular semantic HTML.",
-        url: "https://your-droplet-domain.com", 
+            "Transform raw document structures. Engineered explicitly for the Professional and Part-Time Learning department at Durham College.",
+        url: "https://morphix.kushalpatel.me",
+        images: [{ url: "/images/morphix-home.png" }],
         siteName: "Morphix",
         locale: "en_CA",
         type: "website",

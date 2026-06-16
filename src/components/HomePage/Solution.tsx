@@ -122,7 +122,7 @@ export const Solution = () => {
         >
             <div className="max-w-7xl w-full">
                 {/* Header Context */}
-                <div className="mb-20 text-right flex flex-col items-end">
+                <div className="mb-10 md:mb-20 text-right flex flex-col items-end">
                     <span className="font-mono text-xs uppercase tracking-widest text-green block mb-4">
                         02 . THE PIPELINE
                     </span>

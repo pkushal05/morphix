@@ -13,6 +13,7 @@
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-green: var(--green);
+    --spacing-primary: var(--spacing-primary);
     --font-poppins: "Poppins", sans-serif;
     --text-hero: clamp(2.5rem, 25vw, 25rem);
     --text-brand: clamp(5rem, 18.5vw, 20rem);
