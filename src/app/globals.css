@@ -19,8 +19,6 @@
     --text-brand: clamp(5rem, 18.5vw, 20rem);
 }
 
-@import "tailwindcss";
-
 @utility custom-scrollbar {
     /* For Chrome, Safari, and Edge */
     &::-webkit-scrollbar {
