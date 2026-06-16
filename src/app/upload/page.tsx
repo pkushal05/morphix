@@ -8,6 +8,7 @@ import { useEditor } from "@/context/EditorContext";
 import { ActionTypes } from "@/types/actions";
 import { useRouter } from "next/navigation";
 import Loading from "@/components/UI/Loading";
+import { parseDocumentAction } from "../../actions/parse";
 
 export default function UploadPage() {
     const [isDragActive, setIsDragActive] = useState(false);
@@ -121,26 +122,20 @@ export default function UploadPage() {
         formData.append("file", file);
 
         try {
-            const res = await fetch("/api/parsefile", {
-                method: "POST",
-                body: formData,
-            });
+            const res = await parseDocumentAction(formData);
 
-            if (!res.ok) {
+            if (!res.success) {
                 throw new Error("Error Parsing File. Please Try Again.");
             }
 
-            const data = await res.json();
-
             dispatch({
                 type: ActionTypes.LOAD_STATE,
-                payload: data.parsedJson,
+                payload: res.parsedJson!,
             });
 
             router.push("/editor");
-            
-            setIsUploading(false);
 
+            setIsUploading(false);
         } catch (err: unknown) {
             setError(
                 err instanceof Error
