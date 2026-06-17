@@ -1,19 +1,19 @@
 "use client";
+import { RefObject } from "react";
 import { createPortal } from "react-dom";
 
 type ModalType = {
     isOpen: boolean;
     onClose: () => void;
     children: React.ReactNode;
-    relativeTo: HTMLElement;
 };
 
-export function Modal({ isOpen, onClose, children, relativeTo }: ModalType) {
+export function Modal({ isOpen, onClose, children }: ModalType) {
     if (!isOpen) return null;
 
     return createPortal(
         <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+            className="absolute inset-0 z-50 flex items-center justify-center bg-black/60"
             onClick={onClose}
         >
             <div
@@ -23,6 +23,6 @@ export function Modal({ isOpen, onClose, children, relativeTo }: ModalType) {
                 {children}
             </div>
         </div>,
-        relativeTo,
+        document.body,
     );
 }

@@ -3,10 +3,17 @@ import { ActionTypes } from "@/types/actions";
 import { BlockProps } from "@/types/props";
 import WorkSpaceTextarea from "../UI/WorkSpaceTextarea";
 import { GoPlus } from "react-icons/go";
+import { Modal } from "../UI/Modal";
+import { useState } from "react";
+import { AddBlockModal } from "../UI/AddBlockModal";
+import { CiTextAlignLeft } from "react-icons/ci";
+import { LuHeading } from "react-icons/lu";
+import { IoIosList } from "react-icons/io";
 
 const ParagraphBlock = ({ sectionId, blockId }: BlockProps) => {
     const { state, dispatch } = useEditor();
     const block = state.sections[sectionId].contents[blockId];
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     if (block.type !== "paragraph") return null;
 
@@ -25,13 +32,45 @@ const ParagraphBlock = ({ sectionId, blockId }: BlockProps) => {
             />
             <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 pl-1.5">
                 <button
-                    // onClick={() => handleAddBlock(index, "paragraph")}
+                    onClick={() => setIsMenuOpen(true)}
                     title="Add Paragraph Block Below"
                     className="p-0.5 rounded text-stone-400 hover:text-green hover:bg-stone-800 transition-colors cursor-pointer"
                 >
                     <GoPlus />
                 </button>
             </div>
+            <Modal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)}>
+                <AddBlockModal
+                    heading="Insert Content Node"
+                    subHeading="Select the layout element to insert beneath this row."
+                    options={[
+                        {
+                            label: "Heading",
+                            desc: "Insert a sub-heading for lessons or topics.",
+                            icon: <LuHeading className="text-sky-400" />,
+                            value: "heading",
+                        },
+                        {
+                            label: "Paragraph",
+                            desc: "Standard body context blocks for description data.",
+                            icon: (
+                                <CiTextAlignLeft className="text-stone-400" />
+                            ),
+                            value: "paragraph",
+                        },
+                        {
+                            label: "List",
+                            desc: "Bulleted entry for deliverables or target outcomes.",
+                            icon: <IoIosList className="text-amber-400" />,
+                            value: "list",
+                        },
+                    ]}
+                    onSelect={(selectedValue) => {
+                        console.log(selectedValue);
+                        setIsMenuOpen(false);
+                    }}
+                />
+            </Modal>
         </div>
     );
 };

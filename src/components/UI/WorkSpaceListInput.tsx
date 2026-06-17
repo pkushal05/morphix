@@ -1,7 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { GoPlus } from "react-icons/go";
+import { Modal } from "./Modal";
+import { AddBlockModal } from "./AddBlockModal";
+import { IoIosList } from "react-icons/io";
+import { PiArrowBendRightDown } from "react-icons/pi";
 
 type AnchorBlock = {
     type: "anchor";
@@ -32,6 +36,7 @@ export default function WorkSpaceListInput({
     ...props
 }: WorkSpaceListInputProps) {
     const inputRefs = useRef<HTMLInputElement[]>([]);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const handleTextChange = (index: number, text: string) => {
         const updated = [...items];
@@ -77,7 +82,7 @@ export default function WorkSpaceListInput({
                         </div>
                         <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 pl-1.5">
                             <button
-                                // onClick={() => handleAddBlock(index, "paragraph")}
+                                onClick={() => setIsMenuOpen(true)}
                                 title="Add Paragraph Block Below"
                                 className="p-0.5 rounded text-stone-400 hover:text-green hover:bg-stone-800 transition-colors cursor-pointer"
                             >
@@ -86,6 +91,33 @@ export default function WorkSpaceListInput({
                         </div>
                     </div>
                 ))}
+
+                <Modal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)}>
+                    <AddBlockModal
+                        heading="Insert Content Node"
+                        subHeading="Select the layout element to insert beneath this row."
+                        options={[
+                            {
+                                label: "List Item",
+                                desc: "Add a single bullet list beneath.",
+                                icon: (
+                                    <PiArrowBendRightDown className="text-violet-400" />
+                                ),
+                                value: "list",
+                            },
+                            {
+                                label: "List",
+                                desc: "Add a bulleted list after this list.",
+                                icon: <IoIosList className="text-amber-400" />,
+                                value: "list",
+                            },
+                        ]}
+                        onSelect={(selectedValue) => {
+                            console.log(selectedValue);
+                            setIsMenuOpen(false);
+                        }}
+                    />
+                </Modal>
             </div>
         </div>
     );
