@@ -10,9 +10,10 @@ import { Modal } from "../UI/Modal";
 import { useState } from "react";
 import { HiOutlineFolderPlus } from "react-icons/hi2";
 import { AddBlockModal } from "../UI/AddBlockModal";
+import { ActionTypes } from "@/types/actions";
 
 const Section = ({ sectionId }: SectionProps) => {
-    const { state } = useEditor();
+    const { state, dispatch } = useEditor();
     const section = state.sections[sectionId];
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -81,11 +82,16 @@ const Section = ({ sectionId }: SectionProps) => {
                             icon: (
                                 <HiOutlineFolderPlus className="text-green" />
                             ),
-                            value: "paragraph",
+                            value: "section",
                         },
                     ]}
                     onSelect={(selectedValue) => {
-                        console.log(selectedValue);
+                        if (selectedValue === "section") {
+                            dispatch({
+                                type: ActionTypes.ADD_SECTION,
+                                payload: { targetSectionId: sectionId },
+                            });
+                        }
                         setIsMenuOpen(false);
                     }}
                 />

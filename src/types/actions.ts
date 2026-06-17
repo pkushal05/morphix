@@ -7,6 +7,8 @@ export enum ActionTypes {
     UPDATE_HEADING = "update_heading",
     UPDATE_PARAGRAPH = "update_paragraph",
     UPDATE_LIST_ITEM = "update_list_item",
+    ADD_SECTION = "add_section",
+    ADD_CONTENT_BLOCK = "add_content_block",
 }
 
 type LoadAction = { type: ActionTypes.LOAD_STATE; payload: document };
@@ -41,10 +43,26 @@ type UpdateListItemAction = {
     itemIdx: number;
 };
 
+type AddSectionAfter = {
+    type: ActionTypes.ADD_SECTION;
+    payload: { targetSectionId: string };
+};
+
+type AddContentBlockAfter = {
+    type: ActionTypes.ADD_CONTENT_BLOCK;
+    payload: {
+        sectionId: string;
+        targetBlockId: string;
+        blockType: string;
+    };
+};
+
 export type Actions =
     | LoadAction
     | LoadStorage
     | UpdateHeadingAction
     | UpdateParagraphAction
     | UpdateTopicTitleAction
-    | UpdateListItemAction;
+    | UpdateListItemAction
+    | AddSectionAfter
+    | AddContentBlockAfter;

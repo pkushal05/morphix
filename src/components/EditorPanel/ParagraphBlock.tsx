@@ -66,7 +66,15 @@ const ParagraphBlock = ({ sectionId, blockId }: BlockProps) => {
                         },
                     ]}
                     onSelect={(selectedValue) => {
-                        console.log(selectedValue);
+                        dispatch({
+                            type: ActionTypes.ADD_CONTENT_BLOCK,
+                            payload: {
+                                sectionId,
+                                targetBlockId: blockId,
+                                blockType: selectedValue,
+                            },
+                        });
+
                         setIsMenuOpen(false);
                     }}
                 />
