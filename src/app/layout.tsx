@@ -84,7 +84,7 @@ export default function RootLayout({
             lang="en"
             className={`${poppins.variable} ${syne.variable} h-full antialiased`}
         >
-            <body className="min-h-full overflow-x-hidden">
+            <body className="min-h-full overflow-x-hidden custom-scrollbar">
                 {
                     <EditorProvider>
                         <SmoothScroll>

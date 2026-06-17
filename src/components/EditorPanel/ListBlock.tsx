@@ -23,7 +23,7 @@ const ListBlock = ({ sectionId, blockId }: BlockProps) => {
                         sectionId,
                         blockId,
                         itemIdx: updatedIndex,
-                        value: updatedItems[updatedIndex].text, // Pass just the raw string text
+                        value: updatedItems[updatedIndex].text,
                     });
                 }}
             />

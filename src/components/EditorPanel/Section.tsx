@@ -4,29 +4,15 @@ import { SectionProps } from "@/types/props";
 import HeadingBlock from "@/components/EditorPanel/HeadingBlock";
 import ParagraphBlock from "@/components/EditorPanel/ParagraphBlock";
 import ListBlock from "@/components/EditorPanel/ListBlock";
-import WorkspaceInput from "../UI/WorkSpaceInput";
-import { ActionTypes } from "@/types/actions";
+import { InlineHeadingBlock } from "./InlineHeadingBlock";
 
 const Section = ({ sectionId }: SectionProps) => {
-    const { state, dispatch } = useEditor();
+    const { state } = useEditor();
     const section = state.sections[sectionId];
 
     return (
-        <div className="border-2 border-dashed border-stone-800 rounded-md px-4 py-6 flex flex-col">
-            <div className=" pb-2 flex items-center w-full">
-                <WorkspaceInput
-                    label="Topic:"
-                    variant="inline-header"
-                    value={section.title.text}
-                    onChange={(e) => {
-                        dispatch({
-                            type: ActionTypes.UPDATE_TOPIC_TITLE,
-                            value: e.target.value,
-                            sectionId: sectionId,
-                        });
-                    }}
-                />
-            </div>
+        <div className="border-2 border-dashed border-stone-800 rounded-xl px-4 py-6 flex flex-col">
+            <InlineHeadingBlock sectionId={sectionId} blockId="" />
 
             <div className="flex flex-col gap-y-6">
                 {section.contentOrder.map((blockId, idx) => {

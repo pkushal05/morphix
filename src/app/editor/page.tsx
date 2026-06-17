@@ -132,7 +132,11 @@ const EditorPage = () => {
                     </Group>
                 </div>
             </div>{" "}
-            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                relativeTo={document.body}
+            >
                 <div className="p-1 max-w-md">
                     <h2 className="text-xl font-syne font-bold text-stone-200">
                         Export Compiled Structure

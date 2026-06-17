@@ -5,7 +5,7 @@ const EditorPanel = () => {
     const { state } = useEditor();
 
     return (
-        <div className="max-w-xl mx-auto p-4 flex flex-col gap-y-5">
+        <div className="max-w-xl mx-auto px-2 py-4 flex flex-col gap-y-5">
             {state.sectionOrder.map((sectionId) => {
                 return <Section sectionId={sectionId} key={sectionId} />;
             })}

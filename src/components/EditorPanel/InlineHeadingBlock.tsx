@@ -1,27 +1,27 @@
+import { BlockProps } from "@/types/props";
+import WorkspaceInput from "../UI/WorkSpaceInput";
 import { useEditor } from "@/context/EditorContext";
 import { ActionTypes } from "@/types/actions";
-import { BlockProps } from "@/types/props";
-import WorkSpaceTextarea from "../UI/WorkSpaceTextarea";
 import { GoPlus } from "react-icons/go";
 
-const ParagraphBlock = ({ sectionId, blockId }: BlockProps) => {
+export const InlineHeadingBlock = ({ sectionId }: BlockProps) => {
     const { state, dispatch } = useEditor();
-    const block = state.sections[sectionId].contents[blockId];
 
-    if (block.type !== "paragraph") return null;
+    const section = state.sections[sectionId];
 
     return (
-        <div className="flex items-center group">
-            <WorkSpaceTextarea
-                value={block.text}
-                onChange={(e) =>
+        <div className="pb-2 flex items-center w-full group">
+            <WorkspaceInput
+                label="Topic:"
+                variant="inline-header"
+                value={section.title.text}
+                onChange={(e) => {
                     dispatch({
-                        type: ActionTypes.UPDATE_PARAGRAPH,
+                        type: ActionTypes.UPDATE_TOPIC_TITLE,
                         value: e.target.value,
-                        sectionId,
-                        blockId,
-                    })
-                }
+                        sectionId: sectionId,
+                    });
+                }}
             />
             <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 pl-1.5">
                 <button
@@ -35,5 +35,3 @@ const ParagraphBlock = ({ sectionId, blockId }: BlockProps) => {
         </div>
     );
 };
-
-export default ParagraphBlock;

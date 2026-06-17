@@ -5,9 +5,10 @@ type ModalType = {
     isOpen: boolean;
     onClose: () => void;
     children: React.ReactNode;
+    relativeTo: HTMLElement;
 };
 
-export function Modal({ isOpen, onClose, children }: ModalType) {
+export function Modal({ isOpen, onClose, children, relativeTo }: ModalType) {
     if (!isOpen) return null;
 
     return createPortal(
@@ -22,6 +23,6 @@ export function Modal({ isOpen, onClose, children }: ModalType) {
                 {children}
             </div>
         </div>,
-        document.body,
+        relativeTo,
     );
 }

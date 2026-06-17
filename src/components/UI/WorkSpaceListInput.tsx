@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { GoPlus } from "react-icons/go";
 
 type AnchorBlock = {
     type: "anchor";
@@ -12,7 +13,6 @@ type ListItem = {
     text: string;
     links?: AnchorBlock[];
 };
-
 
 interface WorkSpaceListInputProps extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
@@ -72,8 +72,17 @@ export default function WorkSpaceListInput({
                                 }
                                 // Spreads native properties like placeholder, disabled, autoFocus, etc.
                                 {...props}
-                                className="w-full bg-stone-900/30 text-stone-200 text-xs border border-stone-900 rounded px-3 py-1.5 placeholder-stone-700 outline-none hover:border-stone-800/80 focus:border-emerald-500/40 focus:bg-stone-900/50 transition-colors pr-8"
+                                className="w-full bg-stone-900/30 text-stone-200 text-xs border border-stone-900 rounded px-3 py-1.5 placeholder-stone-700 outline-none hover:border-stone-800/80 group-focus-within:border-emerald-500/40 focus:bg-stone-900/50 transition-colors pr-8"
                             />
+                        </div>
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 pl-1.5">
+                            <button
+                                // onClick={() => handleAddBlock(index, "paragraph")}
+                                title="Add Paragraph Block Below"
+                                className="p-0.5 rounded text-stone-400 hover:text-green hover:bg-stone-800 transition-colors cursor-pointer"
+                            >
+                                <GoPlus />
+                            </button>
                         </div>
                     </div>
                 ))}
