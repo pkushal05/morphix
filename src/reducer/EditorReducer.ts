@@ -7,7 +7,7 @@ import {
     ListBlock,
 } from "@/types/document";
 import { Actions, ActionTypes } from "@/types/actions";
-import { text } from "stream/consumers";
+
 export function reducer(state: document, action: Actions): document {
     switch (action.type) {
         case ActionTypes.LOAD_STATE:
@@ -182,6 +182,38 @@ export function reducer(state: document, action: Actions): document {
                             [newBlockId]: newBlock,
                         },
                         contentOrder: newContentOrder,
+                    },
+                },
+            };
+        }
+
+        case ActionTypes.ADD_LIST_ITEM: {
+            const { sectionId, targetBlockId, itemIdx } = action.payload;
+            const section = state.sections[sectionId];
+            const currentBlock = section.contents[targetBlockId];
+
+            if (!currentBlock || currentBlock.type !== "list") return state;
+
+            const newItem = {
+                text: "",
+            };
+
+            const updateItems = [...currentBlock.items];
+            updateItems.splice(itemIdx + 1, 0, newItem);
+
+            return {
+                ...state,
+                sections: {
+                    ...state.sections,
+                    [sectionId]: {
+                        ...section,
+                        contents: {
+                            ...section.contents,
+                            [targetBlockId]: {
+                                ...currentBlock,
+                                items: updateItems,
+                            },
+                        },
                     },
                 },
             };

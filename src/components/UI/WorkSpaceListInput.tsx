@@ -6,6 +6,9 @@ import { Modal } from "./Modal";
 import { AddBlockModal } from "./AddBlockModal";
 import { IoIosList } from "react-icons/io";
 import { PiArrowBendRightDown } from "react-icons/pi";
+import { useEditor } from "@/context/EditorContext";
+import { ActionTypes } from "@/types/actions";
+import { FaRegTrashCan } from "react-icons/fa6";
 
 type AnchorBlock = {
     type: "anchor";
@@ -23,6 +26,8 @@ interface WorkSpaceListInputProps extends Omit<
     "onChange"
 > {
     items: ListItem[];
+    sectionId: string;
+    blockId: string;
     label?: string;
     className?: string;
     onChange: (items: ListItem[]) => void;
@@ -33,10 +38,13 @@ export default function WorkSpaceListInput({
     label,
     className,
     onChange,
+    sectionId,
+    blockId,
     ...props
 }: WorkSpaceListInputProps) {
     const inputRefs = useRef<HTMLInputElement[]>([]);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [menuOpenIndex, setMenuOpenIndex] = useState<number | null>(null);
+    const { state, dispatch } = useEditor();
 
     const handleTextChange = (index: number, text: string) => {
         const updated = [...items];
@@ -82,7 +90,7 @@ export default function WorkSpaceListInput({
                         </div>
                         <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 pl-1.5">
                             <button
-                                onClick={() => setIsMenuOpen(true)}
+                                onClick={() => setMenuOpenIndex(index)}
                                 title="Add Paragraph Block Below"
                                 className="p-0.5 rounded text-stone-400 hover:text-green hover:bg-stone-800 transition-colors cursor-pointer"
                             >
@@ -92,7 +100,10 @@ export default function WorkSpaceListInput({
                     </div>
                 ))}
 
-                <Modal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)}>
+                <Modal
+                    isOpen={menuOpenIndex !== null}
+                    onClose={() => setMenuOpenIndex(null)}
+                >
                     <AddBlockModal
                         heading="Insert Content Node"
                         subHeading="Select the layout element to insert beneath this row."
@@ -103,7 +114,7 @@ export default function WorkSpaceListInput({
                                 icon: (
                                     <PiArrowBendRightDown className="text-violet-400" />
                                 ),
-                                value: "list",
+                                value: "single-list-item",
                             },
                             {
                                 label: "List",
@@ -111,10 +122,39 @@ export default function WorkSpaceListInput({
                                 icon: <IoIosList className="text-amber-400" />,
                                 value: "list",
                             },
+                            {
+                                label: "Delete",
+                                desc: "Remove the element from DOM",
+                                icon: (
+                                    <FaRegTrashCan className="text-red-500" />
+                                ),
+                                value: "delete",
+                            },
                         ]}
                         onSelect={(selectedValue) => {
-                            console.log(selectedValue);
-                            setIsMenuOpen(false);
+                            if (
+                                selectedValue === "single-list-item" &&
+                                menuOpenIndex !== null
+                            ) {
+                                dispatch({
+                                    type: ActionTypes.ADD_LIST_ITEM,
+                                    payload: {
+                                        sectionId,
+                                        targetBlockId: blockId,
+                                        itemIdx: menuOpenIndex,
+                                    },
+                                });
+                            } else {
+                                dispatch({
+                                    type: ActionTypes.ADD_CONTENT_BLOCK,
+                                    payload: {
+                                        sectionId,
+                                        targetBlockId: blockId,
+                                        blockType: selectedValue,
+                                    },
+                                });
+                            }
+                            setMenuOpenIndex(null);
                         }}
                     />
                 </Modal>

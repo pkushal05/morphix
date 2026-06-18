@@ -9,6 +9,7 @@ import { AddBlockModal } from "../UI/AddBlockModal";
 import { CiTextAlignLeft } from "react-icons/ci";
 import { LuHeading } from "react-icons/lu";
 import { IoIosList } from "react-icons/io";
+import { FaRegTrashCan } from "react-icons/fa6";
 
 const ParagraphBlock = ({ sectionId, blockId }: BlockProps) => {
     const { state, dispatch } = useEditor();
@@ -63,6 +64,12 @@ const ParagraphBlock = ({ sectionId, blockId }: BlockProps) => {
                             desc: "Bulleted entry for deliverables or target outcomes.",
                             icon: <IoIosList className="text-amber-400" />,
                             value: "list",
+                        },
+                        {
+                            label: "Delete",
+                            desc: "Remove the element from DOM",
+                            icon: <FaRegTrashCan className="text-red-500" />,
+                            value: "delete",
                         },
                     ]}
                     onSelect={(selectedValue) => {

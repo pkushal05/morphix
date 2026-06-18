@@ -1,6 +1,5 @@
 import React from "react";
 
-
 type AddBlockType = {
     heading: string;
     subHeading: string;
@@ -31,9 +30,11 @@ export const AddBlockModal = (config: AddBlockType) => {
                         <button
                             key={idx}
                             onClick={() => config.onSelect(option.value)}
-                            className="flex items-start gap-4 p-3 rounded-lg bg-stone-950/50 border border-stone-800 hover:border-stone-700 hover:bg-stone-800/40 text-left transition-all group focus:outline-none focus:ring-1 focus:ring-stone-600"
+                            className={`flex items-start gap-4 p-3 rounded-lg bg-stone-950/50 border border-stone-800 text-left transition-all group focus:outline-none focus:ring-1 focus:ring-stone-600 ${option.value === "delete" ? "hover:border-red-400 hover:bg-red-800/40" : "hover:border-stone-700 hover:bg-stone-800/40"}`}
                         >
-                            <div className="p-2 rounded bg-stone-900 border border-stone-800 group-hover:bg-stone-950 transition-colors">
+                            <div
+                                className={`p-2 rounded bg-stone-900 border border-stone-800 transition-colors ${option.value === "delete" ? "group-hover:bg-red-950" : "group-hover:bg-stone-950"}`}
+                            >
                                 {option.icon}
                             </div>
                             <div className="space-y-0.5">

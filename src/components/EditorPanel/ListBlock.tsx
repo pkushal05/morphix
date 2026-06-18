@@ -15,6 +15,8 @@ const ListBlock = ({ sectionId, blockId }: BlockProps) => {
         <div>
             <WorkSpaceListInput
                 items={block.items}
+                sectionId={sectionId}
+                blockId={blockId}
                 onChange={(updatedItems) => {
                     const updatedIndex = updatedItems.findIndex(
                         (item, idx) => item.text !== block.items[idx]?.text,
