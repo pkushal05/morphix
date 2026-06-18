@@ -7,7 +7,6 @@ import {
     ListBlock,
 } from "@/types/document";
 import { Actions, ActionTypes } from "@/types/actions";
-import Section from "@/components/EditorPanel/Section";
 
 export function reducer(state: document, action: Actions): document {
     switch (action.type) {
