@@ -11,6 +11,7 @@ import { useState } from "react";
 import { HiOutlineFolderPlus } from "react-icons/hi2";
 import { AddBlockModal } from "../UI/AddBlockModal";
 import { ActionTypes } from "@/types/actions";
+import { FaRegTrashCan } from "react-icons/fa6";
 
 const Section = ({ sectionId }: SectionProps) => {
     const { state, dispatch } = useEditor();
@@ -84,12 +85,23 @@ const Section = ({ sectionId }: SectionProps) => {
                             ),
                             value: "section",
                         },
+                        {
+                            label: "Delete",
+                            desc: "Remove the above entire section from DOM",
+                            icon: <FaRegTrashCan className="text-red-500" />,
+                            value: "delete",
+                        },
                     ]}
                     onSelect={(selectedValue) => {
                         if (selectedValue === "section") {
                             dispatch({
                                 type: ActionTypes.ADD_SECTION,
                                 payload: { targetSectionId: sectionId },
+                            });
+                        } else {
+                            dispatch({
+                                type: ActionTypes.REMOVE_SECTION,
+                                payload: { sectionId },
                             });
                         }
                         setIsMenuOpen(false);

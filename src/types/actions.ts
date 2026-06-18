@@ -11,6 +11,7 @@ export enum ActionTypes {
     ADD_CONTENT_BLOCK = "add_content_block",
     ADD_LIST_ITEM = "add_list_item",
     REMOVE_BLOCK = "remove_block",
+    REMOVE_SECTION = "remove_section",
 }
 
 type LoadAction = { type: ActionTypes.LOAD_STATE; payload: document };
@@ -76,6 +77,13 @@ type RemoveBlock = {
     };
 };
 
+type RemoveAboveSection = {
+    type: ActionTypes.REMOVE_SECTION;
+    payload: {
+        sectionId: string;
+    };
+};
+
 export type Actions =
     | LoadAction
     | LoadStorage
@@ -86,4 +94,5 @@ export type Actions =
     | AddSectionAfter
     | AddContentBlockAfter
     | AddSingleListItem
-    | RemoveBlock;
+    | RemoveBlock
+    | RemoveAboveSection;

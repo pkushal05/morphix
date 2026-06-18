@@ -7,6 +7,7 @@ import {
     ListBlock,
 } from "@/types/document";
 import { Actions, ActionTypes } from "@/types/actions";
+import Section from "@/components/EditorPanel/Section";
 
 export function reducer(state: document, action: Actions): document {
     switch (action.type) {
@@ -240,6 +241,25 @@ export function reducer(state: document, action: Actions): document {
                         contentOrder: updatedContentOrder,
                     },
                 },
+            };
+        }
+
+        case ActionTypes.REMOVE_SECTION: {
+            if (state.sectionOrder.length === 1) return state;
+
+            const { sectionId } = action.payload;
+
+            const updatedSectionOrder = state.sectionOrder.filter(
+                (id) => id !== sectionId,
+            );
+
+            const updatedSections = { ...state.sections };
+            delete updatedSections[sectionId];
+
+            return {
+                ...state,
+                sections: updatedSections,
+                sectionOrder: updatedSectionOrder,
             };
         }
 

@@ -9,6 +9,8 @@ import { PiArrowBendRightDown } from "react-icons/pi";
 import { useEditor } from "@/context/EditorContext";
 import { ActionTypes } from "@/types/actions";
 import { FaRegTrashCan } from "react-icons/fa6";
+import { LuHeading } from "react-icons/lu";
+import { CiTextAlignLeft } from "react-icons/ci";
 
 type AnchorBlock = {
     type: "anchor";
@@ -117,6 +119,20 @@ export default function WorkSpaceListInput({
                                 value: "single-list-item",
                             },
                             {
+                                label: "Heading",
+                                desc: "Insert a sub-heading for lessons or topics.",
+                                icon: <LuHeading className="text-sky-400" />,
+                                value: "heading",
+                            },
+                            {
+                                label: "Paragraph",
+                                desc: "Standard body context blocks for description data.",
+                                icon: (
+                                    <CiTextAlignLeft className="text-stone-400" />
+                                ),
+                                value: "paragraph",
+                            },
+                            {
                                 label: "List",
                                 desc: "Add a bulleted list after this list.",
                                 icon: <IoIosList className="text-amber-400" />,
@@ -144,7 +160,11 @@ export default function WorkSpaceListInput({
                                         itemIdx: menuOpenIndex,
                                     },
                                 });
-                            } else if (selectedValue === "list") {
+                            } else if (
+                                selectedValue === "list" ||
+                                selectedValue === "heading" ||
+                                selectedValue === "paragraph"
+                            ) {
                                 dispatch({
                                     type: ActionTypes.ADD_CONTENT_BLOCK,
                                     payload: {
