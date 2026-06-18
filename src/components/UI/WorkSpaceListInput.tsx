@@ -44,7 +44,7 @@ export default function WorkSpaceListInput({
 }: WorkSpaceListInputProps) {
     const inputRefs = useRef<HTMLInputElement[]>([]);
     const [menuOpenIndex, setMenuOpenIndex] = useState<number | null>(null);
-    const { state, dispatch } = useEditor();
+    const { dispatch } = useEditor();
 
     const handleTextChange = (index: number, text: string) => {
         const updated = [...items];

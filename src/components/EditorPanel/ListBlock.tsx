@@ -2,7 +2,6 @@ import { BlockProps } from "@/types/props";
 import { useEditor } from "@/context/EditorContext";
 import { ActionTypes } from "@/types/actions";
 import WorkSpaceListInput from "../UI/WorkSpaceListInput";
-import { useRef, useState } from "react";
 
 const ListBlock = ({ sectionId, blockId }: BlockProps) => {
     const { state, dispatch } = useEditor();
