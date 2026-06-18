@@ -73,14 +73,24 @@ const HeadingBlock = ({ sectionId, blockId }: BlockProps) => {
                         },
                     ]}
                     onSelect={(selectedValue) => {
-                        dispatch({
-                            type: ActionTypes.ADD_CONTENT_BLOCK,
-                            payload: {
-                                sectionId,
-                                targetBlockId: blockId,
-                                blockType: selectedValue,
-                            },
-                        });
+                        if (selectedValue !== "delete") {
+                            dispatch({
+                                type: ActionTypes.ADD_CONTENT_BLOCK,
+                                payload: {
+                                    sectionId,
+                                    targetBlockId: blockId,
+                                    blockType: selectedValue,
+                                },
+                            });
+                        } else {
+                            dispatch({
+                                type: ActionTypes.REMOVE_BLOCK,
+                                payload: {
+                                    sectionId,
+                                    targetBlockId: blockId,
+                                },
+                            });
+                        }
 
                         setIsMenuOpen(false);
                     }}

@@ -144,13 +144,21 @@ export default function WorkSpaceListInput({
                                         itemIdx: menuOpenIndex,
                                     },
                                 });
-                            } else {
+                            } else if (selectedValue === "list") {
                                 dispatch({
                                     type: ActionTypes.ADD_CONTENT_BLOCK,
                                     payload: {
                                         sectionId,
                                         targetBlockId: blockId,
                                         blockType: selectedValue,
+                                    },
+                                });
+                            } else {
+                                dispatch({
+                                    type: ActionTypes.REMOVE_BLOCK,
+                                    payload: {
+                                        sectionId,
+                                        targetBlockId: blockId,
                                     },
                                 });
                             }

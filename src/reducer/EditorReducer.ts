@@ -219,6 +219,30 @@ export function reducer(state: document, action: Actions): document {
             };
         }
 
+        case ActionTypes.REMOVE_BLOCK: {
+            const { sectionId, targetBlockId } = action.payload;
+            const section = state.sections[sectionId];
+
+            const updatedContentOrder = section.contentOrder.filter(
+                (id) => id !== targetBlockId,
+            );
+
+            const updatedContents = { ...section.contents };
+            delete updatedContents[targetBlockId];
+
+            return {
+                ...state,
+                sections: {
+                    ...state.sections,
+                    [sectionId]: {
+                        ...section,
+                        contents: updatedContents,
+                        contentOrder: updatedContentOrder,
+                    },
+                },
+            };
+        }
+
         default:
             return state;
     }

@@ -9,7 +9,6 @@ import { AddBlockModal } from "../UI/AddBlockModal";
 import { LuHeading } from "react-icons/lu";
 import { CiTextAlignLeft } from "react-icons/ci";
 import { IoIosList } from "react-icons/io";
-import { FaRegTrashCan } from "react-icons/fa6";
 
 export const InlineHeadingBlock = ({ sectionId }: BlockProps) => {
     const { state, dispatch } = useEditor();
@@ -64,15 +63,17 @@ export const InlineHeadingBlock = ({ sectionId }: BlockProps) => {
                             icon: <IoIosList className="text-amber-400" />,
                             value: "list",
                         },
-                        {
-                            label: "Delete",
-                            desc: "Remove the element from DOM",
-                            icon: <FaRegTrashCan className="text-red-500" />,
-                            value: "delete",
-                        },
                     ]}
                     onSelect={(selectedValue) => {
-                        console.log(selectedValue);
+                        dispatch({
+                            type: ActionTypes.ADD_CONTENT_BLOCK,
+                            payload: {
+                                sectionId,
+                                targetBlockId: "",
+                                blockType: selectedValue,
+                            },
+                        });
+
                         setIsMenuOpen(false);
                     }}
                 />
