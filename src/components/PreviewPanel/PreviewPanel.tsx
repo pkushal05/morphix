@@ -13,9 +13,9 @@ const PreviewPanel = () => {
 
     return (
         <div className="p-4 h-full">
-            <div className="w-full h-full max-w-3xl mx-auto bg-stone-950 border border-stone-900 rounded-xl p-5">
+            <div className="w-full h-full max-w-3xl mx-auto bg-stone-950  rounded-xl p-5">
                 <div
-                    className="prose prose-invert prose-stone max-w-none text-stone-300 text-sm leading-relaxed"
+                    className="prose prose-invert prose-stone max-w-none text-stone-300 text-sm leading-relaxed prose-h1:mt-10 prose-h2:text-xl prose-h3:text-lg"
                     dangerouslySetInnerHTML={{
                         __html: html,
                     }}
