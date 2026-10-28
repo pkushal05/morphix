@@ -88,7 +88,19 @@ function buildBlock(block: contentBlock): string {
         case "list":
             const tag = block.ordered ? "ol" : "ul";
             const items = block.items
-                .map((item) => `<li>${item.text}</li>`)
+                .map((item) => {
+                    if (item.links && item.links.length > 0) {
+                        const anchors = item.links
+                            .map(
+                                (link) =>
+                                    `<a href="${link.href}">${link.text}</a>`,
+                            )
+                            .join(" ");
+                        return `<li>${item.text} ${anchors}</li>`;
+                    }
+
+                    return `<li>${item.text}</li>`;
+                })
                 .join("");
 
             return `<${tag}>${items}</${tag}>`;
